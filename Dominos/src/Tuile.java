@@ -58,7 +58,7 @@ public class Tuile {
         return res;
     }
 
-    /*public boolean corresponds(Plateau p, int i, int j) {
+    public boolean corresponds(Plateau p, int i, int j) {
         if(p.getTuile(i, j) != null) return false; // la case n'est pas vide
         if(i-1 > 0 && p.getTuile(i-1, j) != null
                 && !p.getTuile(i-1, j).cotes[3].equals(this.cotes[1])) return false;
@@ -69,7 +69,7 @@ public class Tuile {
         if(j+1 < p.nbCol() && p.getTuile(i, j+1) != null
                 && !p.getTuile(i, j+1).cotes[0].equals(this.cotes[2])) return false;
         return true;
-    }*/
+    }
 
     public boolean equals(Object o) {
         if(o == this) return true;
