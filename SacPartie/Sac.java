@@ -1,17 +1,19 @@
 package Partie;
 
 import java.util.ArrayList;
-
+import java.util.random.*;
+import java.math.*;
 public class Sac {
-	ArrayList<Tuile> sac = new ArrayList<>();
+	ArrayList<Tuile> sac;
+	int max;
+	
+	public Sac() {
+		sac = new ArrayList<>();
+	}
 	
 	public Sac(int n){
-		
-		while( n > 0 ) {
-			// On peut peut être créer une fonction qui crée une tuile aleatoire
-			sac.add(null);
-			n--;
-		}
+		max = n;
+		sac = new ArrayList<Tuile>();
 	}
 	
 	public boolean estVide() {
@@ -21,13 +23,18 @@ public class Sac {
 	public void ajouterTuiles(Tuile t) {
 		// je sais pas si on a fait va faire un constructeur de copie
 		// sac.add( new Tuile(t));
+		
 		sac.add(t); 
 	}
 	
 	public Tuile retirer() {
-		Tuile res = sac.get(0);
-		sac.remove(0);
-		return res;
+		if(sac.isEmpty()) {
+			int tirageAlea = (int)(Math.random() * sac.size());
+			Tuile res = sac.get(tirageAlea);
+			sac.remove(tirageAlea);
+			return res;
+		}
+		return null;
 	}
 	
 }

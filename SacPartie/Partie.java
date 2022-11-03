@@ -9,6 +9,10 @@ public class Partie {
 	private ArrayList<Joueur> joueurs = new ArrayList<>();
 	private Plateau terrain;
 	
+	class Initialise{
+		
+	}
+	
 	public Partie(Sac sac, Plateau plateau){
 		// Je sais si on va faire une copie la ou on garde la reference pour la creation
 		sacDeJeu = sac;
