@@ -1,40 +1,72 @@
-package Partie;
-
 import java.util.ArrayList;
-import java.util.random.*;
-import java.math.*;
+import java.util.Random;
+
 public class Sac {
-	ArrayList<Tuile> sac;
-	int max;
-	
-	public Sac() {
-		sac = new ArrayList<>();
-	}
-	
-	public Sac(int n){
-		max = n;
-		sac = new ArrayList<Tuile>();
-	}
-	
-	public boolean estVide() {
-		return sac.size() == 0;
-	}
-	
-	public void ajouterTuiles(Tuile t) {
-		// je sais pas si on a fait va faire un constructeur de copie
-		// sac.add( new Tuile(t));
-		
-		sac.add(t); 
-	}
-	
-	public Tuile retirer() {
-		if(sac.isEmpty()) {
-			int tirageAlea = (int)(Math.random() * sac.size());
-			Tuile res = sac.get(tirageAlea);
-			sac.remove(tirageAlea);
-			return res;
-		}
-		return null;
-	}
-	
+
+    ArrayList<Tuile> tuiles;
+    static Random rand = new Random();
+
+    public Sac() {
+        tuiles = new ArrayList<Tuile>();
+    }
+
+    public boolean estVide() {
+        return tuiles.size() == 0;
+    }
+
+    public boolean ajouterTuile(Tuile t) {
+        for(Tuile tuile : tuiles) {
+            if(t.equals(tuiles)) {
+                System.out.println("La tuile est déja présente dans le sac");
+                return false;
+            }
+        }
+        tuiles.add(t);
+        return true;
+    }
+
+    public Tuile retirer() {
+        if(!estVide()) {
+            int index = rand.nextInt(tuiles.size());
+            return tuiles.remove(index);
+        }
+        System.out.println("Le sac est vide !");
+        return null;
+    }
+}
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Sac {
+
+    ArrayList<Tuile> tuiles;
+    static Random rand = new Random();
+
+    public Sac() {
+        tuiles = new ArrayList<Tuile>();
+    }
+
+    public boolean estVide() {
+        return tuiles.size() == 0;
+    }
+
+    public boolean ajouterTuile(Tuile t) {
+        for(Tuile tuile : tuiles) {
+            if(t.equals(tuiles)) {
+                System.out.println("La tuile est déja présente dans le sac");
+                return false;
+            }
+        }
+        tuiles.add(t);
+        return true;
+    }
+
+    public Tuile retirer() {
+        if(!estVide()) {
+            int index = rand.nextInt(tuiles.size());
+            return tuiles.remove(index);
+        }
+        System.out.println("Le sac est vide !");
+        return null;
+    }
 }
