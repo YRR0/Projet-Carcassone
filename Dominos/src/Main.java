@@ -1,5 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        Partie p = new Partie();
+        p.lancer();
     }
 }

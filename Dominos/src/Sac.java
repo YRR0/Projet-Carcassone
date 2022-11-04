@@ -4,24 +4,35 @@ import java.util.Random;
 public class Sac {
 
     ArrayList<Tuile> tuiles;
+    private int capacite;
     static Random rand = new Random();
 
-    public Sac() {
+    public Sac(int capacite) {
         tuiles = new ArrayList<Tuile>();
+        this.capacite = capacite;
     }
 
     public boolean estVide() {
         return tuiles.size() == 0;
     }
+    public boolean estPlein() {
+        return capacite <= 0;
+    }
 
     public void ajouterTuile(Tuile t) {
-        for(Tuile tuile : tuiles) {
-            if(t.equals(tuiles)) {
-                System.out.println("La tuile est déja présente dans le sac");
-                return;
+        if(capacite > 0) {
+            for(Tuile tuile : tuiles) {
+                if(t.equals(tuiles)) {
+                    System.out.println("La tuile est déja présente dans le sac");
+                    return;
+                }
             }
+            capacite--;
+            tuiles.add(t);
+        } else {
+            System.out.println("Le sac est plein (" + this.tuiles.size() + " tuiles)");
         }
-        tuiles.add(t);
+
     }
 
     public Tuile retirer() {

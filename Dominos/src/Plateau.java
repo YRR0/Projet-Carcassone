@@ -2,26 +2,26 @@ import java.util.ArrayList;
 
 public class Plateau {
 
-    ArrayList<ArrayList<Tuile>> cases; //Peut etre pas une bonne idée
+    Tuile[][] cases; //Peut etre pas une bonne idée
 
     public Plateau() {
-        cases = new ArrayList<ArrayList<Tuile>>();
+        cases = new Tuile[113][113];
     }
 
     public int nbLin() {
-        return cases.size();
+        return cases.length;
     }
 
-    public  int nbCol() {
-        return cases.get(0).size();
+    public int nbCol() {
+        return cases[0].length;
     }
 
     public Tuile getTuile(int i, int j) {
-        return cases.get(i).get(j);
+        return cases[i][j];
     }
 
     public void ajouter(Tuile t, int i, int j) {
-        cases.get(i).set(j, t);
+        cases[i][j] = t;
     }
 
 }

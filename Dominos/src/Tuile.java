@@ -1,15 +1,23 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class Tuile {
 
-    private int[][] cotes;
-
+    private int[][] cotes = new int[4][3];;
+    private static Random rand = new Random();
     public Tuile() {
-        cotes = new int[4][3];
+        this(genereTab(), genereTab(), genereTab(), genereTab());
+    }
+
+    private static int[] genereTab() {
+        int[] res = new int[3];
+        for(int i = 0; i < 3; i++) {
+            res[i] = rand.nextInt(5);
+        }
+        return res;
     }
 
     public Tuile(int[] c0, int[] c1, int[] c2, int[] c3) {
-        cotes = new int[4][3];
         remplirCote(this, 0, c0);
         remplirCote(this, 1, c1);
         remplirCote(this, 2, c2);
@@ -60,6 +68,8 @@ public class Tuile {
 
     public boolean corresponds(Plateau p, int i, int j) {
         if(p.getTuile(i, j) != null) return false; // la case n'est pas vide
+        if((i-1 < 0 || p.getTuile(i-1, j) == null) && (i+1 >= p.nbLin() || p.getTuile(i+1, j) == null)
+                && (j-1 < 0 || p.getTuile(i, j-1) == null) && (j+1 >= p.nbCol() || p.getTuile(i, j+1) == null)) return false; // il n y a aucune tuile autour
         if(i-1 > 0 && p.getTuile(i-1, j) != null
                 && !p.getTuile(i-1, j).cotes[3].equals(this.cotes[1])) return false;
         if(i+1 < p.nbLin() && p.getTuile(i+1, j) != null

@@ -42,4 +42,12 @@ public class Joueur {
         }
     }
 
+    public void gangerPoints(int nbPoints) {
+        if(nbPoints > 0) this.nbPoints += nbPoints;
+    }
+
+    public String toString() {
+        return this.nom;
+    }
+
 }
