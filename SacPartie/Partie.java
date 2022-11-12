@@ -17,7 +17,7 @@ public class Partie {
 	public void rempliSac(int n) {
 		while( n > 0 ) {
 			Tuile aj = new Tuile(randTab(),randTab(),randTab(),randTab());
-			if(sacDeJeu.ajouterTuile(aj)) n--;
+			//if(sacDeJeu.ajouterTuile(aj)) n--;
 		}
 	}
 	
@@ -72,7 +72,8 @@ public class Partie {
 				}
 			}
 			System.out.println("--- Voici le terrain ---");
-			terrain.afficher();
+			//terrain.afficher();
+			
 			System.out.println(" - Voulez vous abandonner ? - (o/n) ");
 			cl = new Scanner(System.in);
 			if(cl.next().equals("o")) {
@@ -182,4 +183,7 @@ public class Partie {
 		return false;
 	}
 	
+	public boolean tousAb() {
+		return joueurs.size()==0;
+	}
 }
