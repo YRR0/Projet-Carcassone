@@ -1,3 +1,5 @@
+package com.game;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,7 +36,9 @@ public class Partie {
             nbJoueurs--;
         }
         Tuile initiale = sac.retirer();
-        plateau.ajouter(initiale, plateau.nbLin() / 2, plateau.nbCol() / 2);
+        plateau = new Plateau(initiale);
+        System.out.println("Voici le plateau initiale: ");
+        System.out.println(initiale);
         while(joueurs.size() > 1 && !sac.estVide()) {
             for(Joueur j : joueurs) {
                 System.out.println("C'est à vous " + j.nom + " vous avez " + j.getNbPoints() + " points");
@@ -49,12 +53,23 @@ public class Partie {
                     break;
                 }
                 do {
-                    System.out.print("Donner le numero de la ligne ou vous voulez poser votre tuile? ");
-                    int lin = scan.nextInt();
-                    lin -= 1;
-                    System.out.print("Donner le numero de la case ou vous voulez poser votre tuile sur la ligne " + (lin+1) + "? ");
-                    int col = scan.nextInt();
-                    col -= 1;
+                    System.out.print("Voulez-vous passer votre tour?(o/n)");
+                    rep = scan.nextLine();
+                    if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
+                        break;
+                    }
+                    System.out.print("Donner l'id de la tuile ou vous voulez poser votre tuile? ");
+                    int id = scan.nextInt();
+                    scan.nextLine();
+                    System.out.print("Donner le cote ou vous voulez poser votre tuile a cote de la tuile " + id + "? ");
+                    String c = scan.nextLine();
+                    Cote.cote cote = switch (c.toLowerCase()) {
+                        case "gauche" -> Cote.cote.GAUCHE;
+                        case "droite" -> Cote.cote.DROITE;
+                        case "bas" -> Cote.cote.BAS;
+                        case "haut" -> Cote.cote.HAUT;
+                        default -> throw new RuntimeException();
+                    };
                     scan.nextLine();
                     System.out.print("Voulez-vous tourner votre tuile?(o/n)");
                     rep = scan.nextLine();
@@ -64,20 +79,14 @@ public class Partie {
                         j.tourner(t, nbTours);
                         System.out.println(t);
                     }
-                    if(t.corresponds(plateau, lin, col)) {
-                        plateau.ajouter(t, lin, col);
-                        boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,
-                                c2 = plateau.getTuile(lin, col+1) == null, c3 = plateau.getTuile(lin+1, col) == null;
+                    if(plateau.ajouter(t, id, cote)) {
+                        boolean c0 = plateau.getTuile(t.getId(), Cote.cote.GAUCHE) == null, c1 = plateau.getTuile(t.getId(), Cote.cote.HAUT) == null,
+                                c2 = plateau.getTuile(t.getId(), Cote.cote.DROITE) == null, c3 = plateau.getTuile(t.getId(), Cote.cote.BAS) == null;
                         j.gangerPoints(t.nbPoints(c0, c1, c2, c3));
                     } else {
                         System.out.println("La position n'est pas valide");
                     }
                     scan.nextLine();
-                    System.out.print("Voulez-vous passer votre tour?(o/n)");
-                    rep = scan.nextLine();
-                    if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
-                        break;
-                    }
                 } while(!rep.toLowerCase().equals("o") && !rep.toLowerCase().equals("oui"));
 
             }
