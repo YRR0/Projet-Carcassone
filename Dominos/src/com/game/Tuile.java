@@ -3,12 +3,12 @@ package com.game;
 import java.util.Arrays;
 import java.util.Random;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Tuile {
 
-    private int[][] cotes = new int[4][3];;
-    private Tuile[] tuilesAdja = new Tuile[4];
-    private int id;
-    private static int nextid = 0;
+    public int[][] cotes = new int[4][3];;
     private static Random rand = new Random();
     public Tuile() {
         this(genereTab(), genereTab(), genereTab(), genereTab());
@@ -17,7 +17,7 @@ public class Tuile {
     private static int[] genereTab() {
         int[] res = new int[3];
         for(int i = 0; i < 3; i++) {
-            res[i] = rand.nextInt(3);
+            res[i] = rand.nextInt(2);
         }
         return res;
     }
@@ -27,7 +27,6 @@ public class Tuile {
         remplirCote(this, 1, c1);
         remplirCote(this, 2, c2);
         remplirCote(this, 3, c3);
-        this.id = nextid++;
     }
 
     private void remplirCote(Tuile t, int cote, int[] valeurs) {
@@ -36,7 +35,7 @@ public class Tuile {
         }
     }
 
-    public void tourner() { // tourner de 90° dans le sens des aiguilles de la montre
+    public void tourner() { // tourner de 90° dans le sens des aiguilles d'une montre
         int[] tmp = this.cotes[0];
         this.cotes[0] = this.cotes[3];
         this.cotes[3] = this.cotes[2];
@@ -49,13 +48,9 @@ public class Tuile {
         s += " ";
         for(int i = 0; i < 3; i++) s += cotes[1][i] + "  ";
         s += "\n";
-        for(int i = 0; i < 3; i++) {
-            if(i == 1) s += cotes[0][i] + "  (" + this.id + ")  " + cotes[2][i] + "\n";
-            else s += cotes[0][i] + "       " + cotes[2][i] + "\n";
-        }
+        for(int i = 0; i < 3; i++) s += cotes[0][i] + "       " + cotes[2][i] + "\n";
         s += " ";
         for(int i = 0; i < 3; i++) s += cotes[3][i] + "  ";
-        s += "\n";
         return s;
     }
 
@@ -71,9 +66,24 @@ public class Tuile {
             for(int i : this.cotes[2]) res += i;
         }
         if(c3) {
-            for(int i : this.cotes[3]) res += i;
+            for(int i : this.cotes[4]) res += i;
         }
         return res;
+    }
+
+    public boolean corresponds(Plateau p, int i, int j) {
+        if(p.getTuile(i, j) != null) return false; // la case n'est pas vide
+        if((i-1 < 0 || p.getTuile(i-1, j) == null) && (i+1 >= p.nbLin() || p.getTuile(i+1, j) == null)
+                && (j-1 < 0 || p.getTuile(i, j-1) == null) && (j+1 >= p.nbCol() || p.getTuile(i, j+1) == null)) return false; // il n y a aucune tuile autour
+        if(i-1 > 0 && p.getTuile(i-1, j) != null
+                && !p.getTuile(i-1, j).cotes[3].equals(this.cotes[1])) return false;
+        if(i+1 < p.nbLin() && p.getTuile(i+1, j) != null
+                && !p.getTuile(i+1, j).cotes[1].equals(this.cotes[3])) return false;
+        if(j-1 > 0 && p.getTuile(i, j-1) != null
+                && !p.getTuile(i, j-1).cotes[2].equals(this.cotes[0])) return false;
+        if(j+1 < p.nbCol() && p.getTuile(i, j+1) != null
+                && !p.getTuile(i, j+1).cotes[0].equals(this.cotes[2])) return false;
+        return true;
     }
 
     public boolean equals(Object o) {
@@ -96,84 +106,7 @@ public class Tuile {
                 && Arrays.equals(this.cotes[2], t.cotes[2]) && Arrays.equals(this.cotes[3], t.cotes[3]));
     }
 
-    public boolean ajouterBas(Tuile t) {
-        if(tuilesAdja[3] != null) {
-            System.out.println("la tuile a une tuile adjacente en bas");
-            return false;
-        }
-        if(!Arrays.equals(cotes[3], t.cotes[1])) {
-            System.out.println(Arrays.toString(cotes[3]) + " diff de " + Arrays.toString(t.cotes[1]));
-            return false;
-        }
-        tuilesAdja[3] = t;
-        return true;
-    }
-
-    public boolean ajouterHaut(Tuile t) {
-        if(tuilesAdja[1] != null) {
-            System.out.println("la tuile a une tuile adjacente en haut");
-            return false;
-        }
-        if(!Arrays.equals(cotes[1], t.cotes[3])) {
-            System.out.println(Arrays.toString(cotes[1]) + " diff de " + Arrays.toString(t.cotes[3]));
-            return false;
-        }
-        tuilesAdja[1] = t;
-        return true;
-    }
-
-    public boolean ajouterDroite(Tuile t) {
-        if(tuilesAdja[2] != null) {
-            System.out.println("la tuile a une tuile adjacente a la droite");
-            return false;
-        }
-        if(!match(cotes[2], t.cotes[0])) {
-            System.out.println(Arrays.toString(cotes[2]) + " diff de " + Arrays.toString(t.cotes[0]));
-            return false;
-        }
-        tuilesAdja[2] = t;
-        return true;
-    }
-
-    public boolean ajouterGauche(Tuile t) {
-        if(tuilesAdja[0] != null) {
-            System.out.println("la tuile a une tuile adjacente a gauche");
-            return false;
-        }
-        if(!match(cotes[0], t.cotes[2])) {
-            System.out.println(Arrays.toString(cotes[0]) + " diff de " + Arrays.toString(t.cotes[2]));
-            return false;
-        }
-        tuilesAdja[0] = t;
-        return true;
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public Tuile getBas() {
-        return tuilesAdja[3];
-    }
-
-    public Tuile getHaut() {
-        return tuilesAdja[1];
-    }
-
-    public Tuile getDroite() {
-        return tuilesAdja[2];
-    }
-
-    public Tuile getGauche() {
-        return tuilesAdja[0];
-    }
-
-    private static boolean match(int[] t1, int[] t2) {
-        for(int i = 0; i < t1.length; i++) {
-            if(t1[i] != t2[i]) return false;
-        }
-        return true;
-    }
 }
+
+
 

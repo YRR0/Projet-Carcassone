@@ -36,9 +36,11 @@ public class Joueur {
         }
     }
 
-    public void poser(Plateau p, Tuile t, int id, Cote.cote cote) {
-        if(!p.ajouter(t, id, cote)) {
-            System.out.println("Impossible de poser la tuile à " + cote + " de " + id);
+    public void poser(Plateau p, Tuile t, int i, int j) {
+        if(t.corresponds(p, i, j)) {
+            p.ajouter(t, i ,j);
+        } else {
+            System.out.println("Impossible de poser la tuile à (" + i + ", " + j + ")");
         }
     }
 
@@ -51,3 +53,4 @@ public class Joueur {
     }
 
 }
+

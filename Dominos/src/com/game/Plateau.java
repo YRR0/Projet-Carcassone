@@ -2,86 +2,82 @@ package com.game;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 public class Plateau {
 
-    ArrayList<Tuile> tuiles = new ArrayList<Tuile>(); // Tout les endroits ou on peut ajouter une tuile
+    Tuile[][] cases;
 
-    public Plateau() {
-    }
-    public Plateau(Tuile first) {
-        tuiles.add(first);
+    public Plateau(int ligne, int col) {
+        cases = new Tuile[ligne][col];
     }
 
-    public boolean ajouter(Tuile t, Tuile in, Cote.cote c) {
-        System.out.println("Je suis dans ajouter(tuile, tuile, cote)");
-            if (Cote.cote.BAS.equals(c)) {
-                System.out.println("Je vais essayer d'ajouter en bas");
-                if(in.ajouterBas(t)) {
-                    tuiles.add(t);
-                    return true;
-                };
-            } else if (Cote.cote.HAUT.equals(c)) {
-                System.out.println("Je vais essayer d'ajouter en haut");
-                if(in.ajouterHaut(t)) {
-                    tuiles.add(t);
-                    return true;
-                };
-            } else if (Cote.cote.DROITE.equals(c)) {
-                System.out.println("Je vais essayer d'ajouter a la droite");
-                if(in.ajouterDroite(t)) {
-                    tuiles.add(t);
-                    return true;
-                };
-            } else if (Cote.cote.GAUCHE.equals(c)) {
-                System.out.println("Je vais essayer d'ajouter a la gauche");
-                if(in.ajouterGauche(t)) {
-                    tuiles.add(t);
-                    return true;
-                };
-            }
-        System.out.println("Pas possible");
-        return false;
+    public int nbLin() {
+        return cases.length;
     }
 
-    public boolean ajouter(Tuile t, int id, Cote.cote c) {
-        Tuile in = null;
-        for(Tuile tuile: tuiles) {
-            if(tuile.getId() == id) {
-                System.out.println("J'ai trouvé la tuile d'id " + id);
-                in = tuile;
-            }
+    public int nbCol() {
+        return cases[0].length;
+    }
+
+    public Tuile getTuile(int i, int j) {
+        return cases[i][j];
+    }
+
+    public void ajouter(Tuile t, int i, int j) {
+        cases[i][j] = t;
+    }
+
+    public void affiche() {
+        for(int i = 0; i < cases.length; i++) {
+            System.out.print((i+1) + " ".repeat(3 - (int) (Math.log10(i+1) + 1)));
+            afficherLigne(i);
         }
-        if(in == null) {
-            System.out.println("Pas de tuile d'id " + id);
-            return false;
+        System.out.print("   ");
+        for(int i = 0; i < cases[0].length; i++) {
+            System.out.print((i+1) + " ".repeat(7 - (int) (Math.log10(i+1) + 1)));
         }
-        return ajouter(t, in, c);
+        System.out.println();
     }
 
-    public Tuile getTuile(int id, Cote.cote c) {
-        Tuile in = null;
-        for(Tuile tuile: tuiles) {
-            if(tuile.getId() == id) in = tuile;
+    private void afficherLigne(int l) {
+        for(int i = 0; i < cases[l].length; i++) {
+            System.out.print("*");
+            if (cases[l][i] != null) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(cases[l][i].cotes[1][j] + "*");
+                }
+            } else System.out.print("*".repeat(6));
         }
-        if(in == null) return  null;
-        switch (c) {
-            case BAS -> {
-                return in.getBas();
+        System.out.println();
+
+        for(int j = 0; j < 3; j++) {
+            System.out.print("   ");
+            for (int i = 0; i < cases[l].length; i++) {
+                if (cases[l][i] != null) {
+                    System.out.print(cases[l][i].cotes[0][j] + "*****");
+                    System.out.print(cases[l][i].cotes[2][j]);
+                } else {
+                    System.out.print("*".repeat(7));
+                }
             }
-            case HAUT -> {
-                return in.getHaut();
-            }
-            case DROITE -> {
-                return in.getDroite();
-            }
-            case GAUCHE -> {
-                return in.getGauche();
-            }
+            System.out.println();
         }
-        return null;
+
+        System.out.print("   ");
+        for(int i = 0; i < cases[l].length; i++) {
+            System.out.print("*");
+            if(cases[l][i] != null) {
+                for(int j = 0; j < 3; j++) {
+                    System.out.print(cases[l][i].cotes[3][j] + "*");
+                }
+            }
+            else System.out.print("*".repeat(6));
+        }
+        System.out.println();
     }
 
-    public void afficher() {
-
-    }
 }
+
+
+
