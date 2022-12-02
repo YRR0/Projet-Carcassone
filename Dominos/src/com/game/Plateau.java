@@ -1,9 +1,5 @@
 package com.game;
 
-import java.util.ArrayList;
-
-import java.util.ArrayList;
-
 public class Plateau {
 
     Tuile[][] cases;
@@ -42,12 +38,12 @@ public class Plateau {
 
     private void afficherLigne(int l) {
         for(int i = 0; i < cases[l].length; i++) {
-            System.out.print("*");
+            System.out.print("_");
             if (cases[l][i] != null) {
                 for (int j = 0; j < 3; j++) {
-                    System.out.print(cases[l][i].cotes[1][j] + "*");
+                    System.out.print(cases[l][i].cotes[1][j] + "_");
                 }
-            } else System.out.print("*".repeat(6));
+            } else System.out.print("_".repeat(6));
         }
         System.out.println();
 
@@ -55,10 +51,10 @@ public class Plateau {
             System.out.print("   ");
             for (int i = 0; i < cases[l].length; i++) {
                 if (cases[l][i] != null) {
-                    System.out.print(cases[l][i].cotes[0][j] + "*****");
+                    System.out.print(cases[l][i].cotes[0][j] + "_____");
                     System.out.print(cases[l][i].cotes[2][j]);
                 } else {
-                    System.out.print("*".repeat(7));
+                    System.out.print("_".repeat(7));
                 }
             }
             System.out.println();
@@ -66,13 +62,13 @@ public class Plateau {
 
         System.out.print("   ");
         for(int i = 0; i < cases[l].length; i++) {
-            System.out.print("*");
+            System.out.print("_");
             if(cases[l][i] != null) {
                 for(int j = 0; j < 3; j++) {
-                    System.out.print(cases[l][i].cotes[3][j] + "*");
+                    System.out.print(cases[l][i].cotes[3][j] + "_");
                 }
             }
-            else System.out.print("*".repeat(6));
+            else System.out.print("_".repeat(6));
         }
         System.out.println();
     }
