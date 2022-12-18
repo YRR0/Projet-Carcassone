@@ -1,0 +1,4 @@
+Comment gerer le score avec le placement des partisans 
+Le placement des tuiles sur le plateau de Jeu 
+Le deroulement de la partie 
+La verfification dans TuileCarcassonne si on peut le placer sur le plateau de jeu ou pas
