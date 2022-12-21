@@ -35,8 +35,8 @@ public class Partie {
            
             System.out.print("Voulez vous que ce joueur soit une intelligene artificiel ? (o/n)");
             String resultat = scan.nextLine();
-            if(resultat.equals("o") || resultat.equals("oui")) {
-            System.out.println(" Un des joueurs est une IA !!! ");
+            if(resultat.equals("o") || resultat.equals("oui") || resultat.equals("O")) {
+            System.out.println(" Un des joueurs est une IA ! ");
             JoueurArtificiel jia = new JoueurArtificiel(nom);
             joueurs.add(jia);
             nbJoueurs--;
@@ -73,9 +73,15 @@ public class Partie {
                 if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
                     break;
                 }
+                
+                boolean valide = false;
+                int lin=-1,col=-1;
                 do {
                     System.out.print("Voulez-vous tourner votre tuile?(o/n)");
                     rep = scan.nextLine();
+ 
+                    do {	
+                    try {
                     if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
                         System.out.print("Donner le nombre de tours de 90° dans le sens horaire: ");
                         int nbTours = scan.nextInt();
@@ -83,22 +89,46 @@ public class Partie {
                         System.out.println(t);
                     }
                     System.out.print("Donner le numero de la ligne ou vous voulez poser votre tuile? ");
-                    int lin = scan.nextInt();
+                    lin = scan.nextInt();
                     lin -= 1;
                     System.out.print("Donner le numero de la case ou vous voulez poser votre tuile sur la ligne " + (lin+1) + "? ");
-                    int col = scan.nextInt();
+                    col = scan.nextInt();
                     col -= 1;
+                    
+                    if(lin>=0 && lin<plateau.nbLin() && col>=0 && col<plateau.nbCol()) valide = true;
                     scan.nextLine();
+                    
+                    }
+                    catch(Exception e) {
+                    	System.out.println("Recommencer les coordonnées ne sont pas valides");
+                    	 scan.nextLine();
+                    }
+                    }
+                    while(!valide);
+                    
                     if(t.corresponds(plateau, lin, col)) {
                         plateau.ajouter(t, lin, col);
-                        boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,
-                                c2 = plateau.getTuile(lin, col+1) == null, c3 = plateau.getTuile(lin+1, col) == null;
-                        int nbPoints = t.nbPoints(c0, c1, c2, c3);
+                   
+                        // Verification pour les points
+    					boolean c0=false,c1=false,c2=false,c3=false;
+    					if(col-1>0) {
+    						c0 = plateau.getTuile(lin, col-1) == null;
+    					}
+    					if(lin-1>0) {
+    						 c1 = plateau.getTuile(lin-1, col) == null;
+    					}
+    					if(col+1<plateau.cases[lin].length) {
+    						c2 = plateau.getTuile(lin, col+1) == null;
+    					}
+    					if(lin+1<plateau.cases.length) {
+    						c3 = plateau.getTuile(lin+1, col) == null;
+    					}
+    					int nbPoints = t.nbPoints(c0, c1, c2, c3);
                         j.gangerPoints(nbPoints);
-                        System.out.println("Felicitation vous avez gangé " + nbPoints + " milliards d'euros");
+                        System.out.println("   Felicitation vous avez gangé " + nbPoints + " milliards d'euros ");
                         break;
                     } else {
-                        System.out.println("La position n'est pas valide");
+                        System.out.println(" La position n'est pas valide ");
                     }
                     
                 	} while(!rep.toLowerCase().equals("o") && !rep.toLowerCase().equals("oui"));
@@ -129,7 +159,8 @@ public class Partie {
             			System.out.println(" Positionnement " + t.corresponds(plateau, li, co));
             			if(t.corresponds(plateau, li, co)) {
                             plateau.ajouter(t, li, co);
-                         // Verification pour les points
+                     
+                            // Verification pour les points
         					boolean c0=false,c1=false,c2=false,c3=false;
         					if(co-1>0) {
         						c0 = plateau.getTuile(li, co-1) == null;

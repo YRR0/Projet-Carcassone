@@ -14,10 +14,6 @@ public class JoueurArtificiel extends Joueur {
 		}
 	}
 	
-	// redefifnir la methode abandonner
-	
-	// Est ce qu'on veut passer notre tour
-	
 	//Faire une methode boolean pour coupPossible pour tester si sur le terrain on peut poser notre tuile 
 	public boolean coupPossible(Plateau p,Tuile a) {
 		int max = 0;
@@ -47,6 +43,7 @@ public class JoueurArtificiel extends Joueur {
                     
 					int nbPoints = a.nbPoints(c0, c1, c2, c3);
                     if(nbPoints > max) {
+                    max = nbPoints;
                     choix = new Instruction(i,j,0);
                     res = true;
                     }
@@ -74,6 +71,7 @@ public class JoueurArtificiel extends Joueur {
 					}
 					int nbPoints = a.nbPoints(c0, c1, c2, c3);
                     if(nbPoints > max) {
+                    max = nbPoints;
                     choix = new Instruction(i,j,1);
                     res = true;
                     }
@@ -100,6 +98,7 @@ public class JoueurArtificiel extends Joueur {
 						c3 = p.getTuile(i+1, j) == null;
 					}int nbPoints = a.nbPoints(c0, c1, c2, c3);
                     if(nbPoints > max) {
+                    max = nbPoints;
                     choix = new Instruction(i,j,2);
                     res = true;
                     }
@@ -124,8 +123,10 @@ public class JoueurArtificiel extends Joueur {
 					}
 					if(i+1<p.cases.length) {
 						c3 = p.getTuile(i+1, j) == null;
-					}int nbPoints = a.nbPoints(c0, c1, c2, c3);
+					}
+					int nbPoints = a.nbPoints(c0, c1, c2, c3);
                     if(nbPoints > max) {
+                    max = nbPoints;
                     choix = new Instruction(i,j,3);
                     res = true;
                     }
@@ -137,8 +138,9 @@ public class JoueurArtificiel extends Joueur {
 			}
 			
 		}
-		
-		System.out.println("Le meilleur coup est " + choix.tour+" ligne : "+choix.i+ " colonne: "+choix.j );
+		if(choix != null) {
+			System.out.println("Le meilleur coup est " + choix.tour+" ligne : "+choix.i+ " colonne: "+choix.j );	
+		}
 		return res;
 	}
 	
