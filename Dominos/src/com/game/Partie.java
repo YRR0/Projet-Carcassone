@@ -107,6 +107,8 @@ public class Partie {
             	// Cas du joueur artificiel 
             	else {
             		System.out.println("=> Voici le plateau "); plateau.affiche();
+            		
+            		if(!sac.estVide()) {
             		Tuile t = sac.retirer();
             		
             		JoueurArtificiel ia = (JoueurArtificiel)j ;
@@ -154,6 +156,8 @@ public class Partie {
             			joueurs.remove(j);
             		}
             	}
+            		
+            }
          }
        }
         if(joueurs.size() <= 1) {
