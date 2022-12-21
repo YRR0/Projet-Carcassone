@@ -1,3 +1,5 @@
+package com.game;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,8 +11,8 @@ public class Partie {
     private static Scanner scan = new Scanner(System.in);
 
     public Partie() {
-        sac = new Sac(56);
-        plateau = new Plateau();
+        sac = new Sac(20);
+        plateau = new Plateau(10, 10);
         joueurs = new ArrayList<Joueur>();
         while(!sac.estPlein()) {
             Tuile t = new Tuile();
@@ -38,6 +40,8 @@ public class Partie {
         while(joueurs.size() > 1 && !sac.estVide()) {
             for(Joueur j : joueurs) {
                 System.out.println("C'est à vous " + j.nom + " vous avez " + j.getNbPoints() + " points");
+                System.out.println("Voici le plateau: ");
+                plateau.affiche();
                 Tuile t = j.piocher(sac);
                 System.out.println("Voici votre tuile");
                 System.out.println(t);
@@ -48,14 +52,12 @@ public class Partie {
                     joueurs.remove(j);
                     break;
                 }
+                System.out.print("Voulez-vous passer votre tour?(o/n)");
+                rep = scan.nextLine();
+                if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
+                    break;
+                }
                 do {
-                    System.out.print("Donner le numero de la ligne ou vous voulez poser votre tuile? ");
-                    int lin = scan.nextInt();
-                    lin -= 1;
-                    System.out.print("Donner le numero de la case ou vous voulez poser votre tuile sur la ligne " + (lin+1) + "? ");
-                    int col = scan.nextInt();
-                    col -= 1;
-                    scan.nextLine();
                     System.out.print("Voulez-vous tourner votre tuile?(o/n)");
                     rep = scan.nextLine();
                     if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
@@ -64,22 +66,25 @@ public class Partie {
                         j.tourner(t, nbTours);
                         System.out.println(t);
                     }
+                    System.out.print("Donner le numero de la ligne ou vous voulez poser votre tuile? ");
+                    int lin = scan.nextInt();
+                    lin -= 1;
+                    System.out.print("Donner le numero de la case ou vous voulez poser votre tuile sur la ligne " + (lin+1) + "? ");
+                    int col = scan.nextInt();
+                    col -= 1;
+                    scan.nextLine();
                     if(t.corresponds(plateau, lin, col)) {
                         plateau.ajouter(t, lin, col);
                         boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,
                                 c2 = plateau.getTuile(lin, col+1) == null, c3 = plateau.getTuile(lin+1, col) == null;
-                        j.gangerPoints(t.nbPoints(c0, c1, c2, c3));
+                        int nbPoints = t.nbPoints(c0, c1, c2, c3);
+                        j.gangerPoints(nbPoints);
+                        System.out.println("Felicitation vous avez gangé " + nbPoints + " milliards d'euros");
+                        break;
                     } else {
                         System.out.println("La position n'est pas valide");
                     }
-                    scan.nextLine();
-                    System.out.print("Voulez-vous passer votre tour?(o/n)");
-                    rep = scan.nextLine();
-                    if(rep.toLowerCase().equals("o") || rep.toLowerCase().equals("oui")) {
-                        break;
-                    }
                 } while(!rep.toLowerCase().equals("o") && !rep.toLowerCase().equals("oui"));
-
             }
         }
         if(joueurs.size() <= 1) {

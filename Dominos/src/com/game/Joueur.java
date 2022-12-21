@@ -1,3 +1,5 @@
+package com.game;
+
 public class Joueur {
 
     public final String nom;
@@ -51,3 +53,4 @@ public class Joueur {
     }
 
 }
+

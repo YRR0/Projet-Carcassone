@@ -1,3 +1,5 @@
+package com.game;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +24,7 @@ public class Sac {
     public void ajouterTuile(Tuile t) {
         if(capacite > 0) {
             for(Tuile tuile : tuiles) {
-                if(t.equals(tuiles)) {
+                if(t.equals(tuile)) {
                     System.out.println("La tuile est déja présente dans le sac");
                     return;
                 }

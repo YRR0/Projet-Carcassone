@@ -1,9 +1,11 @@
+package com.game;
+
 import java.util.Arrays;
 import java.util.Random;
 
 public class Tuile {
 
-    private int[][] cotes = new int[4][3];;
+    public int[][] cotes = new int[4][3];;
     private static Random rand = new Random();
     public Tuile() {
         this(genereTab(), genereTab(), genereTab(), genereTab());
@@ -12,7 +14,7 @@ public class Tuile {
     private static int[] genereTab() {
         int[] res = new int[3];
         for(int i = 0; i < 3; i++) {
-            res[i] = rand.nextInt(5);
+            res[i] = rand.nextInt(2);
         }
         return res;
     }
@@ -61,7 +63,7 @@ public class Tuile {
             for(int i : this.cotes[2]) res += i;
         }
         if(c3) {
-            for(int i : this.cotes[4]) res += i;
+            for(int i : this.cotes[3]) res += i;
         }
         return res;
     }
@@ -71,13 +73,21 @@ public class Tuile {
         if((i-1 < 0 || p.getTuile(i-1, j) == null) && (i+1 >= p.nbLin() || p.getTuile(i+1, j) == null)
                 && (j-1 < 0 || p.getTuile(i, j-1) == null) && (j+1 >= p.nbCol() || p.getTuile(i, j+1) == null)) return false; // il n y a aucune tuile autour
         if(i-1 > 0 && p.getTuile(i-1, j) != null
-                && !p.getTuile(i-1, j).cotes[3].equals(this.cotes[1])) return false;
+                && !Arrays.equals(p.getTuile(i-1, j).cotes[3], this.cotes[1])) {
+                    return false;
+                }
         if(i+1 < p.nbLin() && p.getTuile(i+1, j) != null
-                && !p.getTuile(i+1, j).cotes[1].equals(this.cotes[3])) return false;
+                && !Arrays.equals(p.getTuile(i+1, j).cotes[1], this.cotes[3])) {
+                    return false;
+                }
         if(j-1 > 0 && p.getTuile(i, j-1) != null
-                && !p.getTuile(i, j-1).cotes[2].equals(this.cotes[0])) return false;
+                && !Arrays.equals(p.getTuile(i, j-1).cotes[2], this.cotes[0])) {
+                    return false;
+                }
         if(j+1 < p.nbCol() && p.getTuile(i, j+1) != null
-                && !p.getTuile(i, j+1).cotes[0].equals(this.cotes[2])) return false;
+                && !Arrays.equals(p.getTuile(i, j+1).cotes[0], this.cotes[2])) {
+                    return false;
+                }
         return true;
     }
 
@@ -102,4 +112,6 @@ public class Tuile {
     }
 
 }
+
+
 
