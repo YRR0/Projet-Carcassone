@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Tuile {
 
-    public int[][] cotes = new int[4][3];;
+    public int[][] cotes = new int[4][3];
     private static Random rand = new Random();
     public Tuile() {
         this(genereTab(), genereTab(), genereTab(), genereTab());

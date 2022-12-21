@@ -28,17 +28,33 @@ public class Partie {
             nbJoueurs = scan.nextInt();
         } while (nbJoueurs < 2);
         scan.nextLine();
+        
         while(nbJoueurs > 0) {
             System.out.print("Donner le nom de joueur " + nbJoueurs + ": ");
             String nom = scan.nextLine();
+           
+            System.out.print("Voulez vous que ce joueur soit une intelligene artificiel ? (o/n)");
+            String resultat = scan.nextLine();
+            if(resultat.equals("o") || resultat.equals("oui")) {
+            System.out.println(" Un des joueurs est une IA !!! ");
+            JoueurArtificiel jia = new JoueurArtificiel(nom);
+            joueurs.add(jia);
+            nbJoueurs--;
+            }
+            else {
             Joueur j = new Joueur(nom);
             joueurs.add(j);
             nbJoueurs--;
+            }
         }
+        
         Tuile initiale = sac.retirer();
         plateau.ajouter(initiale, plateau.nbLin() / 2, plateau.nbCol() / 2);
+      
         while(joueurs.size() > 1 && !sac.estVide()) {
+        	
             for(Joueur j : joueurs) {
+            	if((j instanceof Joueur ) && !(j instanceof JoueurArtificiel)) {
                 System.out.println("C'est à vous " + j.nom + " vous avez " + j.getNbPoints() + " points");
                 System.out.println("Voici le plateau: ");
                 plateau.affiche();
@@ -84,12 +100,65 @@ public class Partie {
                     } else {
                         System.out.println("La position n'est pas valide");
                     }
-                } while(!rep.toLowerCase().equals("o") && !rep.toLowerCase().equals("oui"));
-            }
-        }
+                    
+                	} while(!rep.toLowerCase().equals("o") && !rep.toLowerCase().equals("oui"));
+            	}
+            
+            	// Cas du joueur artificiel 
+            	else {
+            		System.out.println("=> Voici le plateau "); plateau.affiche();
+            		Tuile t = sac.retirer();
+            		
+            		JoueurArtificiel ia = (JoueurArtificiel)j ;
+            		boolean jouer = ia.coupPossible(plateau,t);
+            		
+            		System.out.println("jouer : "+ jouer);
+            		System.out.println(" -> Voici la tuile du joueur artificiel " + ia);
+            		System.out.println(t);
+            		if(jouer) {
+            			int li = ia.choix.i;
+            			int co = ia.choix.j;
+            			int tour = ia.choix.tour;
+            			
+            			ia.tourner(t, tour);
+            			System.out.println("-> Voici la tuile de l'intelligence artifici el apres les tours : "+tour);
+            			System.out.println("--> Voici le placement choisi par "+ia.nom +" ligne: "+li + " colonne: "+co);
+            			System.out.println(t);
+            			System.out.println(" Positionnement " + t.corresponds(plateau, li, co));
+            			if(t.corresponds(plateau, li, co)) {
+                            plateau.ajouter(t, li, co);
+                         // Verification pour les points
+        					boolean c0=false,c1=false,c2=false,c3=false;
+        					if(co-1>0) {
+        						c0 = plateau.getTuile(li, co-1) == null;
+        					}
+        					if(li-1>0) {
+        						 c1 = plateau.getTuile(li-1, co) == null;
+        					}
+        					if(co+1<plateau.cases[li].length) {
+        						c2 = plateau.getTuile(li, co+1) == null;
+        					}
+        					if(li+1<plateau.cases.length) {
+        						c3 = plateau.getTuile(li+1, co) == null;
+        					}int nbPoints = t.nbPoints(c0, c1, c2, c3);
+                            ia.gangerPoints(nbPoints);
+                            System.out.println("Felicitation vous avez gagné " + nbPoints + " points, score de ia est : " + ia.getNbPoints());
+                        }
+            			else {
+            				System.out.println(" L'IA a un problème ");
+            			}
+            		}
+            		else {
+            			// On va faire que me joueur Artificiel abandonne s'il ne peut pas placer
+            			System.out.println(ia.nom +" abandonne .");
+            			joueurs.remove(j);
+            		}
+            	}
+         }
+       }
         if(joueurs.size() <= 1) {
             if(joueurs.size() == 0) System.out.println("Tous les joueurs ont abandonnés");
-            else System.out.println("Le gangant est " + joueurs.get(0));
+            else System.out.println("Le gagnant est " + joueurs.get(0));
         }
         else {
             System.out.println("Le sac est vide");
@@ -97,7 +166,7 @@ public class Partie {
             for(Joueur j : joueurs) {
                 if(j.getNbPoints() > gagnant.getNbPoints()) gagnant = j;
             }
-            System.out.println("Le gangant est le joueur " + gagnant);
+            System.out.println("Le gagnant est le joueur " + gagnant);
         }
     }
 
