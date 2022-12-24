@@ -1,4 +1,4 @@
-package com.game;
+package com.dominos.game.components;
 
 import java.util.ArrayList;
 import java.util.Random;

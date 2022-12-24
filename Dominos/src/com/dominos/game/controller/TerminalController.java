@@ -1,16 +1,21 @@
-package com.game;
+package com.dominos.game.controller;
+
+import com.dominos.game.components.Plateau;
+import com.dominos.game.components.Sac;
+import com.dominos.game.components.Tuile;
+import com.dominos.game.player.Joueur;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Partie {
+public class TerminalController {
 
-    private Sac sac;
-    private ArrayList<Joueur> joueurs;
-    private Plateau plateau;
-    private static Scanner scan = new Scanner(System.in);
+    private final Sac sac;
+    private final ArrayList<Joueur> joueurs;
+    private final Plateau plateau;
+    private static final Scanner scan = new Scanner(System.in);
 
-    public Partie() {
+    public TerminalController() {
         sac = new Sac(20);
         plateau = new Plateau(10, 10);
         joueurs = new ArrayList<Joueur>();

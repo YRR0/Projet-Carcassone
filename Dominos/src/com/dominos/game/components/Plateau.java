@@ -1,4 +1,4 @@
-package com.game;
+package com.dominos.game.components;
 
 public class Plateau {
 
@@ -16,12 +16,16 @@ public class Plateau {
         return cases[0].length;
     }
 
+    private boolean estDansLimites(int i, int j) {
+        return (((i >= 0) && i < cases.length) && ((j >= 0) && j < cases[0].length));
+    }
     public Tuile getTuile(int i, int j) {
-        return cases[i][j];
+        if(estDansLimites(i, j)) return cases[i][j];
+        return null;
     }
 
     public void ajouter(Tuile t, int i, int j) {
-        cases[i][j] = t;
+        if(estDansLimites(i, j)) cases[i][j] = t;
     }
 
     public void affiche() {

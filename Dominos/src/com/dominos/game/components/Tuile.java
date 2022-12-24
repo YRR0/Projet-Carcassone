@@ -1,4 +1,4 @@
-package com.game;
+package com.dominos.game.components;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tuile {
 
     public int[][] cotes = new int[4][3];;
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
     public Tuile() {
         this(genereTab(), genereTab(), genereTab(), genereTab());
     }
@@ -27,9 +27,7 @@ public class Tuile {
     }
 
     private void remplirCote(Tuile t, int cote, int[] valeurs) {
-        for(int i = 0; i < valeurs.length; i++) {
-            t.cotes[cote][i] = valeurs[i];
-        }
+        System.arraycopy(valeurs, 0, t.cotes[cote], 0, valeurs.length);
     }
 
     public void tourner() { // tourner de 90° dans le sens des aiguilles d'une montre
@@ -41,14 +39,14 @@ public class Tuile {
     }
 
     public String toString() {
-        String s = "";
-        s += " ";
-        for(int i = 0; i < 3; i++) s += cotes[1][i] + "  ";
-        s += "\n";
-        for(int i = 0; i < 3; i++) s += cotes[0][i] + "       " + cotes[2][i] + "\n";
-        s += " ";
-        for(int i = 0; i < 3; i++) s += cotes[3][i] + "  ";
-        return s;
+        StringBuilder s = new StringBuilder();
+        s.append(" ");
+        for(int i = 0; i < 3; i++) s.append(cotes[1][i]).append("  ");
+        s.append("\n");
+        for(int i = 0; i < 3; i++) s.append(cotes[0][i]).append("       ").append(cotes[2][i]).append("\n");
+        s.append(" ");
+        for(int i = 0; i < 3; i++) s.append(cotes[3][i]).append("  ");
+        return s.toString();
     }
 
     public int nbPoints(boolean c0, boolean c1, boolean c2, boolean c3) {
@@ -84,17 +82,13 @@ public class Tuile {
                 && !Arrays.equals(p.getTuile(i, j-1).cotes[2], this.cotes[0])) {
                     return false;
                 }
-        if(j+1 < p.nbCol() && p.getTuile(i, j+1) != null
-                && !Arrays.equals(p.getTuile(i, j+1).cotes[0], this.cotes[2])) {
-                    return false;
-                }
-        return true;
+        return j + 1 >= p.nbCol() || p.getTuile(i, j + 1) == null
+                || Arrays.equals(p.getTuile(i, j + 1).cotes[0], this.cotes[2]);
     }
 
     public boolean equals(Object o) {
         if(o == this) return true;
-        if(!(o instanceof Tuile)) return false;
-        Tuile t = (Tuile) o;
+        if(!(o instanceof Tuile t)) return false;
         if(t.identique(this)) return true;
         t.tourner();
         if(t.identique(this)) return true;

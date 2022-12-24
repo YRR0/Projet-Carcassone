@@ -1,4 +1,8 @@
-package com.game;
+package com.dominos.game.player;
+
+import com.dominos.game.components.Plateau;
+import com.dominos.game.components.Sac;
+import com.dominos.game.components.Tuile;
 
 public class Joueur {
 
