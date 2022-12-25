@@ -10,17 +10,14 @@ public class JPlateau extends JPanel {
 
     private JPanel plateauContainer;
     private JTuile[][] tuiles;
-
     private Plateau plateau;
-    private int x, y;
+    private int x, y; // indices de la tuile suivante sur le plateau la toute premiéres étant 0 0
 
     public JPlateau(int nbLins, int nbCols) {
         plateauContainer = new JPanel(new GridLayout(nbLins, nbCols));
         initTuiles(nbLins, nbCols);
         setLayout(new BorderLayout());
         add(plateauContainer, BorderLayout.CENTER);
-        x = 10;
-        y = 10;
     }
 
     private void initTuiles(int lins, int cols) {
@@ -41,10 +38,11 @@ public class JPlateau extends JPanel {
                 x = 5 * (JTuile.RECT_WIDTH+1) * j;
                 y = 5 * (JTuile.RECT_HEIGHT+1) * i;
                 if(plateau != null) {
-                    Tuile tuile = plateau.getTuile(i, j);
-                    tuiles[i][j].setTuile(tuile);
+                    tuiles[i][j].setTuile(plateau.getTuile(i, j));
                 }
                 tuiles[i][j].paint(g);
+                g.setColor(getBackground());
+                g.fillRect(0, 0, JTuile.TUILE_WIDTH, JTuile.TUILE_HEIGHT);
                 tuiles[i][j].setLocation(x, y);
             }
         }

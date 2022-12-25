@@ -44,7 +44,7 @@ public class JTuile extends JPanel {
             paintTuile(graphics2D);
         } else {
             graphics2D.setColor(Color.BLACK);
-            graphics2D.fillRect(bx, by, 5 * RECT_WIDTH, 5 * RECT_HEIGHT);
+            graphics2D.fillRect(0, 0, TUILE_WIDTH, TUILE_HEIGHT);
         }
     }
 

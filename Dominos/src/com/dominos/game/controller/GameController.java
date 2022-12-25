@@ -51,6 +51,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         plateau.ajouter(initiale, plateau.nbLin() / 2 - 1, plateau.nbCol() / 2 - 1);
         gameView.setPlateau(plateau);
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
+        System.out.println(gameView.getJTuile().getX() + " " + gameView.getJTuile().getY());
         gameView.enable_piocher(true);
         gameView.piocher_addActionListener(e -> {
             gameView.enable_piocher(false);
@@ -63,15 +64,13 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         });
         gameView.turnLeft_addListener(e -> {
             Tuile t = gameView.getJTuile().getTuile();
-            t.tourner();
-            t.tourner();
-            t.tourner();
+            courant.tourner(t, 3);
             gameView.setjTuile(t);
             repaint();
         });
         gameView.turnRight_addListener(e -> {
             Tuile t = gameView.getJTuile().getTuile();
-            t.tourner();
+            courant.tourner(t, 1);
             gameView.setjTuile(t);
             repaint();
         });
@@ -171,7 +170,6 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
                 }
             }
         }
-        resetTuilePosition();
         repaint();
         tuileMouvable = false;
     }

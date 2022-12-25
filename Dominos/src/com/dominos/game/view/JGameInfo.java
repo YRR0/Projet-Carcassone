@@ -4,6 +4,8 @@ import com.dominos.game.player.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static javax.swing.JOptionPane.showInputDialog;
 
@@ -27,19 +29,17 @@ public class JGameInfo extends JComponent {
 
         setLayout(new BorderLayout());
 
-        gameInfo.setBackground(Color.LIGHT_GRAY);
+        gameInfo.setBackground(Color.WHITE);
         add(gameInfo, BorderLayout.CENTER);
         add(playerInfo, BorderLayout.SOUTH);
     }
 
     private void initPlayerInfo() {
-        playerInfo = new JPanel(new GridLayout(2, 2, 10, 10));
-        playerInfo.setBorder(BorderFactory.createEmptyBorder(20, 30, 15, 30));
+        playerInfo = new JPanel(new FlowLayout());
         playerName = new JLabel();
-        playerName.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        playerName.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 20));
         playerScore = new JLabel();
-        playerScore.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
+        playerScore.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 10));
         playerInfo.add(playerName);
         playerInfo.add(playerScore);
     }
@@ -61,8 +61,8 @@ public class JGameInfo extends JComponent {
             joueurs[i-1] = new Joueur(name);
             playersNames[i] = new JLabel(name+":", SwingConstants.CENTER);
             playersScores[i] = new JLabel("0", SwingConstants.CENTER);
-            playersNames[i].setFont(new Font("Serif", Font.BOLD, 14));
-            playersScores[i].setFont(new Font("Serif", Font.BOLD, 14));
+            playersNames[i].setFont(new Font("Helvetica", Font.BOLD, 20));
+            playersScores[i].setFont(new Font("Helvetica", Font.BOLD, 20));
             gameInfo.add(playersNames[i]);
             gameInfo.add(playersScores[i]);
         }
@@ -83,8 +83,21 @@ public class JGameInfo extends JComponent {
     }
 
     private void styleGameInfo() {
-        playersNames[0].setFont(new Font("Serif", Font.BOLD, 25));
-        playersScores[0].setFont(new Font("Serif", Font.BOLD, 25));
+        //InputStream fontInput = getClass().getResourceAsStream("/fonts/ChivoMono-VariableFont_wght.ttf");
+        Font myFont = new Font("Times New Roman", Font.BOLD, 25);
+       /* try {
+            myFont = Font.createFont(Font.TRUETYPE_FONT, fontInput);
+            myFont.deriveFont(Font.BOLD);
+            myFont.deriveFont(10000000000000000000000000000000f);
+        } catch (FontFormatException | IOException e) {
+            System.out.println("erreure");
+        }*/
+        playerName.setFont(myFont);
+        playerScore.setFont(myFont);
+        playerName.setForeground(new Color(31, 29, 54));
+        playerScore.setForeground(new Color(41, 52, 98));
+        playersNames[0].setFont(myFont);
+        playersScores[0].setFont(myFont);
         playersNames[0].setForeground(Color.BLACK);
         playersScores[0].setForeground(Color.BLACK);
     }
