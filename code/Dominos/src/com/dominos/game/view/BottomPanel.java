@@ -2,9 +2,13 @@ package com.dominos.game.view;
 
 import com.dominos.game.components.Tuile;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class BottomPanel extends JComponent {
 
@@ -36,8 +40,6 @@ public class BottomPanel extends JComponent {
     public void setTuile(Tuile t) {
         tuile.setTuile(t);
     }
-
-
 
     public JTuile getTuile() {
         return tuile;

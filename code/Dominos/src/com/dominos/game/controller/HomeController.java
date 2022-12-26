@@ -4,7 +4,6 @@ import com.dominos.game.view.GameView;
 import com.dominos.game.view.HomeView;
 
 public class HomeController {
-
     private HomeView homeView;
 
     public HomeController() {
@@ -14,7 +13,7 @@ public class HomeController {
             String nbJoueurs = homeView.input.getText();
             try {
                 int nombresJoueurs = Integer.parseInt(nbJoueurs);
-                GameController gameController = new GameController(nombresJoueurs);
+                GameController gameController = new GameController(nombresJoueurs,0);
                 homeView.dispose();
                 gameController.start();
             } catch (Exception exception) {

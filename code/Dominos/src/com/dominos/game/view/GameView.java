@@ -24,16 +24,10 @@ public class GameView extends JPanel {
     private JPlateau plateau;
     private JGameInfo gameInfo;
     private JTuile jTuile;
-    private JButton abandonner;
-    private JButton passerTour;
-    private JButton turnLeft;
-    private JButton turnRight;
-    private JButton piocher;
-
+    private JButton abandonner, passerTour, turnLeft, turnRight, piocher;
 
     public GameView(int nbJoueurs) {
         initComponents(nbJoueurs);
-
         setSize(WIDTH, HEIGHT);
         setLayout(null);
         add(plateau);
@@ -52,23 +46,34 @@ public class GameView extends JPanel {
         gameInfo = new JGameInfo(nbJoueurs);
         jTuile = new JTuile();
         jTuile.setTuile(null);
-        abandonner = new JButton("Abandonner");
-        passerTour = new JButton("Passer mon tour");
-        turnLeft = new JButton("<-");
-        turnRight = new JButton("->");
-      
-        BufferedImage image = null;
+        BufferedImage imagePioche = null, imageG = null , imageD = null , imageAbandonner = null,imagePasser=null;
         try {
-			image= ImageIO.read(new File("Ressources/images/dominos.jpg"));
+			imagePioche = ImageIO.read(new File("Ressources/images/dominos.jpg"));
+			imageG = ImageIO.read(new File("Ressources/images/g.png"));
+			imageD = ImageIO.read(new File("Ressources/images/d.png"));
+			imageAbandonner = ImageIO.read(new File("Ressources/images/abandonner.png"));
+			imagePasser = ImageIO.read(new File("Ressources/images/passer.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Erreur dans le chargement initComponents");
+			System.out.println("Erreur dans le chargement initComponents de GameView ");
 		}
-        piocher = new JButton(new ImageIcon(image));
-        
+        piocher = new JButton(new ImageIcon(imagePioche));
+        abandonner = new JButton(new ImageIcon(imageAbandonner));
+        passerTour = new JButton(new ImageIcon(imagePasser));
+        turnLeft = new JButton(new ImageIcon(imageG));
+        turnRight = new JButton(new ImageIcon(imageD)); 
+        personnaliseButton();
         enableControll(false);
+        this.setBackground(Color.DARK_GRAY);
     }
-
+    
+    public void personnaliseButton() {
+    	abandonner.setBackground(new Color(255, 255, 255)); abandonner.setOpaque(false); abandonner.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+    	passerTour.setBackground(new Color(255, 255, 255)); passerTour.setOpaque(false); passerTour.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+    	turnLeft.setBackground(new Color(255, 255, 255)); turnLeft.setOpaque(false); turnLeft.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+    	turnRight.setBackground(new Color(255, 255, 255)); turnRight.setOpaque(false); turnRight.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+    }
+    
     private void reposition() {
         gameInfo.setLocation(0,0);
         gameInfo.setSize(new Dimension((int) (0.2 * getWidth()), (int) (0.8 * getHeight())));
@@ -81,10 +86,10 @@ public class GameView extends JPanel {
         turnLeft.setLocation((getWidth() / 2) - JTuile.TUILE_WIDTH - (getWidth() / 10), (int) (0.8 * getHeight()));
         turnRight.setSize(getWidth() / 10, getHeight()/12);
         turnRight.setLocation(getWidth() / 2 + 2 * JTuile.TUILE_WIDTH, (int) (0.8 * getHeight()));
-        abandonner.setSize(getWidth() / 10, getHeight() / 24);
-        abandonner.setLocation(0, (int) (0.8 * getHeight()));
-        passerTour.setSize(getWidth() / 10, getHeight() / 24);
-        passerTour.setLocation(0 , (int) (0.8 * getHeight()) + getHeight() / 24 + 10);
+        abandonner.setSize(getWidth() / 10, getHeight() / 19);
+        abandonner.setLocation(60, (int) (0.8 * getHeight()));
+        passerTour.setSize(getWidth() / 10, getHeight() / 19);
+        passerTour.setLocation(58 , (int) (0.8 * getHeight()) + getHeight() / 24 + 10);
     }
 
     public Joueur[] getJoueurs() {

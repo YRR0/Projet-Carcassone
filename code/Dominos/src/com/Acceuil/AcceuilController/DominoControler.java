@@ -38,13 +38,9 @@ public class DominoControler {
 			}
 		});
 		dominoChoice.player4.addActionListener( e -> {
-			if(dominoChoice.creation) {
-				
+			if(dominoChoice.creation) {	
 			dominoChoice.listData[3] ="3 IA" ;
 			dominoChoice.listData[4] ="4 IA" ;
-			
-			//Lier l'ancienne list et la nouvelle liste
-			
 			dominoChoice.number.setVisibleRowCount(1);
 			dominoChoice.scrollPane = new JScrollPane(dominoChoice.number);
 			dominoChoice.contenu2.add(dominoChoice.scrollPane);
@@ -87,10 +83,10 @@ public class DominoControler {
 		
 		// Gerer aussi le nombre de joueur artificiel
 		if(joueurArtificiel == 0) {
-			new GameController(nombre).start();
+			new GameController(nombre,0).start();
 		}
 		else {
-			new GameController(nombre).start();
+			new GameController(nombre,joueurArtificiel).start();
 		}
 		dominoChoice.dispose();
 		});

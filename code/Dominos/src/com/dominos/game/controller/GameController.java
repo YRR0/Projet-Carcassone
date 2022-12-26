@@ -28,7 +28,9 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
     private ArrayList<Joueur> joueurs;
     private Joueur courant;
     private boolean tuileMouvable;
-    public GameController(int nbJoueurs) {
+    private int joueurArtificiel;
+    public GameController(int nbJoueurs,int jArtificiel) {
+    	joueurArtificiel = jArtificiel;
         gameView = new GameView(nbJoueurs);
         initGame();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -234,12 +236,12 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
 		}
         JButton quitter = new JButton("Quitter");
         quitter = new JButton(new ImageIcon(image)); quitter.setBackground(new Color(0, 0, 0)); quitter.setOpaque(false); quitter.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
-        
         quitter.addActionListener(e -> System.exit(0));
         winnerPanel.add(winnerText);
         winnerPanel.add(quitter);
         this.remove(gameView);
         this.add(winnerPanel);
+        
         this.show();
     }
 

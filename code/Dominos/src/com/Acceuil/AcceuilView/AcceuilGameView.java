@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class AcceuilGameView extends JFrame {
-	
-	    // Declare two panels
 	    private ImagePanel panel1, panel2;
 	    private JButton button1 , button2;
 	    
@@ -27,7 +25,6 @@ public class AcceuilGameView extends JFrame {
 				image = ImageIO.read(new File("Ressources/images/button1.png"));
 				image2 = ImageIO.read(new File("Ressources/images/button3.png"));
 	        } catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.out.println("Erreur dans le chargement images pour les bouttons");
 			}
 	        
@@ -57,6 +54,7 @@ public class AcceuilGameView extends JFrame {
 	    public JButton getButton1() {
 	    	return this.button1;
 	    }
+	    
 	    public JButton getButton2() {
 	    	return this.button2;
 	    }

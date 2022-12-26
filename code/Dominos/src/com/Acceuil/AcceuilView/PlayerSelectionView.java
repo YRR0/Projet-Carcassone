@@ -91,13 +91,12 @@ public class PlayerSelectionView extends JFrame {
 	
 	public void creationImage() {
 		 try {
-				image1 = ImageIO.read(new File("Ressources/images/joueur2.png"));
-				image2 = ImageIO.read(new File("Ressources/images/joueur3.png"));
-				image3 = ImageIO.read(new File("Ressources/images/joueur4.png"));
-				image4 = ImageIO.read(new File("Ressources/images/Ok.png"));
+			image1 = ImageIO.read(new File("Ressources/images/joueur2.png"));
+			image2 = ImageIO.read(new File("Ressources/images/joueur3.png"));
+			image3 = ImageIO.read(new File("Ressources/images/joueur4.png"));
+			image4 = ImageIO.read(new File("Ressources/images/Ok.png"));
 		 } catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Erreur dans le chargement images pour les bouttons");
+			System.out.println("Erreur dans le chargement images pour les bouttons");
 		}	
 		player2 = new JButton(new ImageIcon(image1)); player2.setBackground(new Color(0, 0, 0)); player2.setOpaque(false); player2.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
 	    player3 = new JButton(new ImageIcon(image2)); player3.setBackground(new Color(0, 0, 0)); player3.setOpaque(false); player3.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));

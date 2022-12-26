@@ -189,7 +189,7 @@ public class TerminalController {
             			}
             		}
             		else {
-            			// On va faire que me joueur Artificiel abandonne s'il ne peut pas placer
+            			// On va faire que le joueur Artificiel abandonne s'il ne peut pas placer
             			System.out.println(ia.nom +" abandonne .");
             			joueurs.remove(j);
             		}

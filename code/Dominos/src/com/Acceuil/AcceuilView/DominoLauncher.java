@@ -35,7 +35,6 @@ public class DominoLauncher extends JFrame{
 			image = ImageIO.read(new File("Ressources/images/terminal.png"));
 			image2 = ImageIO.read(new File("Ressources/images/graphique.png"));
         } catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Erreur dans le chargement images pour les bouttons");
 		}
         terminal = new JButton(new ImageIcon(image)); terminal.setBackground(new Color(0, 0, 0)); terminal.setOpaque(false); terminal.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
