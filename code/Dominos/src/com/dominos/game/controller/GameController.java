@@ -161,6 +161,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             Point coordinates = getCoordinate(mouseEvent);
             Tuile t = gameView.getJTuile().getTuile();
             int lin = (int) coordinates.getX(), col = (int) coordinates.getY();
+            try {
             if(t.corresponds(plateau, lin, col)) {
                 plateau.ajouter(t, lin, col);
                 gameView.setPlateau(plateau);
@@ -174,6 +175,10 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
                 if(sac.estVide()) {
                     winner();
                 }
+            }
+            }
+            catch(Exception e) {
+            	System.out.println("Tuile vide");
             }
         }
         repaint();
