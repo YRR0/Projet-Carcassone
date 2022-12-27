@@ -91,9 +91,18 @@ public class Tuile {
         if(!(o instanceof Tuile t)) return false;
         if(t.identique(this)) return true;
         t.tourner();
-        if(t.identique(this)) return true;
+        if(t.identique(this)) {
+            t.tourner(); // Pour restaurer la tuile a son orientation avant le test
+            t.tourner();
+            t.tourner();
+            return true;
+        }
         t.tourner();
-        if(t.identique(this)) return true;
+        if(t.identique(this)) {
+            t.tourner(); // Pour restaurer la tuile a son orientation avant le test
+            t.tourner();
+            return true;
+        }
         t.tourner();
         if(t.identique(this)) return true;
         t.tourner(); // Pour restaurer la tuile a son orientation avant le test

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Sac {
 
-    ArrayList<Tuile> tuiles;
+    private final ArrayList<Tuile> tuiles;
     private int capacite;
     static Random rand = new Random();
 
