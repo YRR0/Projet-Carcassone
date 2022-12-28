@@ -1,8 +1,8 @@
-package com.dominos.game.view;
+package com.carcassone.game.view;
 
-import com.dominos.game.components.Plateau;
-import com.dominos.game.components.Tuile;
-import com.dominos.game.player.Joueur;
+import com.carcassone.game.components.Plateau;
+import com.carcassone.game.components.tuiles.Tuile;
+import com.carcassone.game.player.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,13 +10,12 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class GameView extends JPanel {
-
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int WIDTH  = (int) screenSize.getWidth();
     public static final int HEIGHT = (int) screenSize.getHeight();
-    public static final int NB_LIGNE = (int) ((0.8 * HEIGHT) / (5 * (JTuile.RECT_HEIGHT + 1)));
+    public static final int NB_LIGNE = (int) ((0.8 * HEIGHT) / (JTuile.TUILE_WIDTH + 5));
 
-    public static final int NB_COLS = (int) ((0.8 * WIDTH) / (5 * (JTuile.RECT_WIDTH + 1)));
+    public static final int NB_COLS = (int) ((0.8 * WIDTH) / (JTuile.TUILE_HEIGHT + 5));
     private JPlateau plateau;
     private JGameInfo gameInfo;
     private JTuile jTuile;
@@ -62,12 +61,12 @@ public class GameView extends JPanel {
         plateau.setLocation((int) (0.2 * getWidth()), 0);
         plateau.setSize((int) (0.8 * getWidth()), (int) (0.8 * getHeight()));
         jTuile.setLocation((int) (0.5 * getWidth()), (int) (0.8 * getHeight()));
-        piocher.setSize(JTuile.TUILE_WIDTH, JTuile.TUILE_HEIGHT);
-        piocher.setLocation(getWidth() - JTuile.TUILE_WIDTH - 10, (int) (0.8 * getHeight()));
+        piocher.setSize(com.dominos.game.view.JTuile.TUILE_WIDTH, com.dominos.game.view.JTuile.TUILE_HEIGHT);
+        piocher.setLocation(getWidth() - com.dominos.game.view.JTuile.TUILE_WIDTH - 10, (int) (0.8 * getHeight()));
         turnLeft.setSize(getWidth() / 10, getHeight()/12);
-        turnLeft.setLocation((getWidth() / 2) - JTuile.TUILE_WIDTH - (getWidth() / 10), (int) (0.8 * getHeight()));
+        turnLeft.setLocation((getWidth() / 2) - com.dominos.game.view.JTuile.TUILE_WIDTH - (getWidth() / 10), (int) (0.8 * getHeight()));
         turnRight.setSize(getWidth() / 10, getHeight()/12);
-        turnRight.setLocation(getWidth() / 2 + 2 * JTuile.TUILE_WIDTH, (int) (0.8 * getHeight()));
+        turnRight.setLocation(getWidth() / 2 + 2 * com.dominos.game.view.JTuile.TUILE_WIDTH, (int) (0.8 * getHeight()));
         abandonner.setSize(getWidth() / 10, getHeight() / 24);
         abandonner.setLocation(0, (int) (0.8 * getHeight()));
         passerTour.setSize(getWidth() / 10, getHeight() / 24);
@@ -135,5 +134,4 @@ public class GameView extends JPanel {
     public void sacVide() {
         piocher.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Dominos/empty.png"))));
     }
-
 }

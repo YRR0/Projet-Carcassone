@@ -7,7 +7,7 @@ public class Sac {
 
     private final ArrayList<Tuile> tuiles;
     private int capacite;
-    static Random rand = new Random();
+    private final static Random rand = new Random();
 
     public Sac(int capacite) {
         tuiles = new ArrayList<Tuile>();
@@ -18,18 +18,17 @@ public class Sac {
         return tuiles.size() == 0;
     }
     public boolean estPlein() {
-        return capacite <= 0;
+        return tuiles.size() == capacite;
     }
 
     public void ajouterTuile(Tuile t) {
-        if(capacite > 0) {
+        if(tuiles.size() < capacite) {
             for(Tuile tuile : tuiles) {
                 if(t.equals(tuile)) {
                     System.out.println("La tuile est déja présente dans le sac");
                     return;
                 }
             }
-            capacite--;
             tuiles.add(t);
         } else {
             System.out.println("Le sac est plein (" + this.tuiles.size() + " tuiles)");

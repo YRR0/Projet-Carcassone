@@ -1,12 +1,10 @@
-package com.carcassone.game.components;
+package com.carcassone.game.components.tuiles;
 
-import com.dominos.game.components.Plateau;
-
-import java.util.Arrays;
+import com.carcassone.game.components.Plateau;
 
 public class Tuile {
-    private Paysage[] cotes;
-    private boolean bouclier;
+    private final Paysage[] cotes;
+    private final boolean bouclier;
     private boolean abbaye;
     private boolean carrefour;
 
@@ -38,8 +36,16 @@ public class Tuile {
         this.cotes[1] = tmp;
     }
 
+    public boolean estAbbaye() {
+        return abbaye;
+    }
+
+    public boolean estCarrefour() {
+        return carrefour;
+    }
+
     public String toString() {
-        return cotes[0].toString() + "_" + cotes[1].toString() + "_" + cotes[2].toString() + "_" + cotes[3].toString() + "_" + (bouclier?"b":"");
+        return cotes[0].toString() + "_" + cotes[1].toString() + "_" + cotes[2].toString() + "_" + cotes[3].toString() + (bouclier?"_b":"");
     }
 
     public boolean corresponds(Plateau p, int i, int j) {
@@ -55,10 +61,10 @@ public class Tuile {
             return false;
         }
         if(j-1 > 0 && p.getTuile(i, j-1) != null
-                && p.getTuile(i, j-1).cotes[2].getClass().equals(this.cotes[0])) {
+                && p.getTuile(i, j-1).cotes[2].getClass().equals(this.cotes[0].getClass())) {
             return false;
         }
         return j + 1 >= p.nbCol() || p.getTuile(i, j + 1) == null
-                || p.getTuile(i, j + 1).cotes[0].getClass().equals(this.cotes[2]);
+                || p.getTuile(i, j + 1).cotes[0].getClass().equals(this.cotes[2].getClass());
     }
 }

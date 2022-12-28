@@ -1,4 +1,6 @@
-package com.carcassone.game.components;
+package com.carcassone.game.components.tuiles;
+
+import com.carcassone.game.components.tuiles.Paysage;
 
 public class Ville extends Paysage {
 

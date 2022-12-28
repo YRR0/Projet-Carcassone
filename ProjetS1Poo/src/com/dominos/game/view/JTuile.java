@@ -21,7 +21,7 @@ public class JTuile extends JPanel {
     }
 
     private void initTuile() {
-        setPreferredSize(new Dimension(5 * RECT_WIDTH, 5 * RECT_HEIGHT));
+        setSize(TUILE_WIDTH, TUILE_HEIGHT);
         tuile = null;
     }
 

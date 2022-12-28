@@ -1,4 +1,4 @@
-package com.carcassone.game.components;
+package com.carcassone.game.components.tuiles;
 
 public class Chemin extends Paysage {
 

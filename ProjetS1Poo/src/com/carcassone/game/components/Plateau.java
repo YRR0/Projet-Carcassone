@@ -1,6 +1,8 @@
 package com.carcassone.game.components;
 
 
+import com.carcassone.game.components.tuiles.Tuile;
+
 public class Plateau {
 
     Tuile[][] cases;
