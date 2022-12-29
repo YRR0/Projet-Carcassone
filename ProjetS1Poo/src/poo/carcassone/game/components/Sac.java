@@ -6,6 +6,7 @@ import poo.carcassone.game.components.tuiles.Tuile;
 import poo.carcassone.game.components.tuiles.Ville;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Sac {
@@ -22,6 +23,7 @@ public class Sac {
         generate3();
         generate2();
         generate1();
+        shuffle();
     }
 
     private void generate9() {
@@ -111,6 +113,9 @@ public class Sac {
 
     public boolean estPlein() {
         return tuiles.size() == 72;
+    }
+    private void shuffle() {
+        Collections.shuffle(tuiles);
     }
 
     public Tuile retirer() {

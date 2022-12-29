@@ -34,7 +34,6 @@ public class JTuile extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D graphics2D = (Graphics2D) g;
         Image image = null;
         String tuileDescription = "";
         try {

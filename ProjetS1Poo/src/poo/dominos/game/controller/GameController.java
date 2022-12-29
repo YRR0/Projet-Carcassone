@@ -8,11 +8,16 @@ import poo.dominos.game.view.GameView;
 import poo.dominos.game.view.JPlateau;
 import poo.dominos.game.view.JTuile;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +29,9 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
     private ArrayList<Joueur> joueurs;
     private Joueur courant;
     private boolean tuileMouvable;
-    public GameController(int nbJoueurs) {
+    private int joueurArtificiel;
+    public GameController(int nbJoueurs, int jArtificiel) {
+        joueurArtificiel = jArtificiel;
         gameView = new GameView(nbJoueurs);
         initGame();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,7 +48,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             Tuile t = new Tuile();
             sac.ajouterTuile(t);
         }
-        plateau = new Plateau(GameView.NB_LIGNE, GameView.NB_COLS);
+        plateau = new Plateau(GameView.NB_LIGNES, GameView.NB_COLS);
         joueurs = new ArrayList<>(List.of(gameView.getJoueurs()));
         courant = joueurs.get(0);
     }
@@ -75,6 +82,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             repaint();
         });
         gameView.abandonner_addActionListener(e -> {
+            courant.abandonner();
             int indexCourant = nextPlayer();
             joueurs.remove(indexCourant);
             clearTuile();
@@ -169,6 +177,8 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
                     winner();
                 }
             }
+        } else {
+            resetTuilePosition();
         }
         repaint();
         tuileMouvable = false;
@@ -215,16 +225,33 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
 
     private void winner() {
         JPanel winnerPanel = new JPanel();
+        winnerPanel.setBackground(Color.gray);
         winnerPanel.setLayout(new FlowLayout());
         Joueur winner = getWinner();
         JLabel winnerText = new JLabel(winner + " a gagné");
         winnerText.setFont(new Font("Serif", Font.BOLD, 75));
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(getClass().getResource("/images/quitter.png").toURI()));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         JButton quitter = new JButton("Quitter");
+        quitter = new JButton(new ImageIcon(image));
+        quitter.setBackground(new Color(0, 0, 0));
+        quitter.setOpaque(false);
+        quitter.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
         quitter.addActionListener(e -> System.exit(0));
         winnerPanel.add(winnerText);
         winnerPanel.add(quitter);
         this.remove(gameView);
         this.add(winnerPanel);
+
+        this.setVisible(true);
+
     }
 
     private Joueur getWinner() {

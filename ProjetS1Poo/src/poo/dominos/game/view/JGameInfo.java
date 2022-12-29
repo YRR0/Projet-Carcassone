@@ -27,7 +27,8 @@ public class JGameInfo extends JComponent {
 
         setLayout(new BorderLayout());
 
-        gameInfo.setBackground(Color.WHITE);
+        gameInfo.setBackground(Color.DARK_GRAY);
+        playerInfo.setBackground(Color.DARK_GRAY);
         add(gameInfo, BorderLayout.CENTER);
         add(playerInfo, BorderLayout.SOUTH);
     }
@@ -61,6 +62,8 @@ public class JGameInfo extends JComponent {
             playersScores[i] = new JLabel("0", SwingConstants.CENTER);
             playersNames[i].setFont(new Font("Helvetica", Font.BOLD, 20));
             playersScores[i].setFont(new Font("Helvetica", Font.BOLD, 20));
+            playersNames[i].setForeground(Color.WHITE);
+            playersScores[i].setForeground(Color.WHITE);
             gameInfo.add(playersNames[i]);
             gameInfo.add(playersScores[i]);
         }
@@ -92,11 +95,11 @@ public class JGameInfo extends JComponent {
         }*/
         playerName.setFont(myFont);
         playerScore.setFont(myFont);
-        playerName.setForeground(new Color(31, 29, 54));
-        playerScore.setForeground(new Color(41, 52, 98));
+        playerName.setForeground(new Color(253, 138, 138));
+        playerScore.setForeground(new Color(253, 138, 138));
         playersNames[0].setFont(myFont);
         playersScores[0].setFont(myFont);
-        playersNames[0].setForeground(Color.BLACK);
-        playersScores[0].setForeground(Color.BLACK);
+        playersNames[0].setForeground(Color.LIGHT_GRAY);
+        playersScores[0].setForeground(Color.LIGHT_GRAY);
     }
 }

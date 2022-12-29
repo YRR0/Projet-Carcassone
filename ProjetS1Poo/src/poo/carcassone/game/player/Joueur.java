@@ -10,12 +10,14 @@ public class Joueur {
     private static int nextId = 0;
     private int nbPoints;
     private boolean enJeu;
+    private int nbPartisans;
 
     public Joueur(String nom) {
         this.nom = nom;
         id = nextId++;
         nbPoints = 0;
         enJeu = true;
+        nbPartisans = 10;
     }
 
     public int getNbPoints() {
@@ -45,6 +47,10 @@ public class Joueur {
         } else {
             System.out.println("Impossible de poser la tuile à (" + i + ", " + j + ")");
         }
+    }
+
+    public void poserPartisans(Plateau p, int i, int j, int cote) {
+
     }
 
     public void gangerPoints(int nbPoints) {

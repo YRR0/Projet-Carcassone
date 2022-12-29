@@ -34,7 +34,6 @@ public class JTuile extends JPanel {
         repaint();
     }
 
-    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
@@ -50,7 +49,7 @@ public class JTuile extends JPanel {
 
     private void erase(Graphics2D g) {
         g.setColor(getBackground());
-        g.fillRect(0, 0, 5 * RECT_WIDTH, 5 * RECT_HEIGHT);
+        g.fillRect(0, 0, TUILE_WIDTH, TUILE_HEIGHT);
     }
 
     private void paintEmpty(Graphics2D g) {

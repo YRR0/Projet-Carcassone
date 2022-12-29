@@ -8,6 +8,7 @@ public class Tuile {
     private boolean abbaye;
     private boolean carrefour;
 
+
     public Tuile(Paysage c0, Paysage c1, Paysage c2, Paysage c3, boolean bouclier) {
         cotes = new Paysage[4];
         cotes[0] = c0;
@@ -53,18 +54,25 @@ public class Tuile {
         if((i-1 < 0 || p.getTuile(i-1, j) == null) && (i+1 >= p.nbLin() || p.getTuile(i+1, j) == null)
                 && (j-1 < 0 || p.getTuile(i, j-1) == null) && (j+1 >= p.nbCol() || p.getTuile(i, j+1) == null)) return false; // il n y a aucune tuile autour
         if(i-1 > 0 && p.getTuile(i-1, j) != null
-                && p.getTuile(i-1, j).cotes[3].getClass().equals(this.cotes[1].getClass())) {
+                && !p.getTuile(i-1, j).cotes[3].getClass().equals(this.cotes[1].getClass())) {
+            System.out.println(p.getTuile(i-1, j).cotes[3].getClass() + ", " + this.cotes[1].getClass());
             return false;
         }
         if(i+1 < p.nbLin() && p.getTuile(i+1, j) != null
-                && p.getTuile(i+1, j).cotes[1].getClass().equals(this.cotes[3].getClass())) {
+                && !p.getTuile(i+1, j).cotes[1].getClass().equals(this.cotes[3].getClass())) {
+            System.out.println(p.getTuile(i+1, j).cotes[1].getClass() + ", " + this.cotes[3].getClass());
             return false;
         }
         if(j-1 > 0 && p.getTuile(i, j-1) != null
-                && p.getTuile(i, j-1).cotes[2].getClass().equals(this.cotes[0].getClass())) {
+                && !p.getTuile(i, j-1).cotes[2].getClass().equals(this.cotes[0].getClass())) {
+            System.out.println(p.getTuile(i, j-1).cotes[2].getClass() + ", " + this.cotes[0].getClass());
             return false;
         }
-        return j + 1 >= p.nbCol() || p.getTuile(i, j + 1) == null
-                || p.getTuile(i, j + 1).cotes[0].getClass().equals(this.cotes[2].getClass());
+        if(j+1 < p.nbCol() && p.getTuile(i, j+1) != null
+                && !p.getTuile(i, j+1).cotes[0].getClass().equals(this.cotes[2].getClass())) {
+            System.out.println(p.getTuile(i, j+1).cotes[0].getClass() + ", " + this.cotes[2].getClass());
+            return false;
+        }
+        return true;
     }
 }
