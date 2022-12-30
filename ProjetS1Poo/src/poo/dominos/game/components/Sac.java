@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class Sac {
 
-    private final ArrayList<Tuile> tuiles;
+    ArrayList<Tuile> tuiles;
     private int capacite;
-    private final static Random rand = new Random();
+    static Random rand = new Random();
 
     public Sac(int capacite) {
         tuiles = new ArrayList<Tuile>();
@@ -18,17 +18,18 @@ public class Sac {
         return tuiles.size() == 0;
     }
     public boolean estPlein() {
-        return tuiles.size() == capacite;
+        return capacite <= 0;
     }
 
     public void ajouterTuile(Tuile t) {
-        if(tuiles.size() < capacite) {
+        if(capacite > 0) {
             for(Tuile tuile : tuiles) {
                 if(t.equals(tuile)) {
-                    System.out.println("La tuile est déja présente dans le sac");
+                    //System.out.println("La tuile est déja présente dans le sac");
                     return;
                 }
             }
+            capacite--;
             tuiles.add(t);
         } else {
             System.out.println("Le sac est plein (" + this.tuiles.size() + " tuiles)");

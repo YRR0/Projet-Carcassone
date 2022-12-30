@@ -1,25 +1,34 @@
 package poo.dominos.game.controller;
 
-import poo.dominos.game.components.Plateau;
-import poo.dominos.game.components.Sac;
-import poo.dominos.game.components.Tuile;
-import poo.dominos.game.player.Joueur;
-import poo.dominos.game.view.GameView;
-import poo.dominos.game.view.JPlateau;
-import poo.dominos.game.view.JTuile;
+import java.awt.Color;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import poo.dominos.game.view.JTuile;
+import poo.dominos.game.components.Plateau;
+import poo.dominos.game.components.Sac;
+import poo.dominos.game.components.Tuile;
+import poo.dominos.game.player.Joueur;
+import poo.dominos.game.view.GameView;
+import poo.dominos.game.view.JPlateau;
 
 public class GameController extends JFrame implements MouseMotionListener, MouseListener {
 
@@ -30,8 +39,9 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
     private Joueur courant;
     private boolean tuileMouvable;
     private int joueurArtificiel;
-    public GameController(int nbJoueurs, int jArtificiel) {
-        joueurArtificiel = jArtificiel;
+    
+    public GameController(int nbJoueurs,int jArtificiel) {
+    	joueurArtificiel = jArtificiel;
         gameView = new GameView(nbJoueurs);
         initGame();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -48,7 +58,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             Tuile t = new Tuile();
             sac.ajouterTuile(t);
         }
-        plateau = new Plateau(GameView.NB_LIGNES, GameView.NB_COLS);
+        plateau = new Plateau(GameView.NB_LIGNE, GameView.NB_COLS);
         joueurs = new ArrayList<>(List.of(gameView.getJoueurs()));
         courant = joueurs.get(0);
     }
@@ -82,7 +92,6 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             repaint();
         });
         gameView.abandonner_addActionListener(e -> {
-            courant.abandonner();
             int indexCourant = nextPlayer();
             joueurs.remove(indexCourant);
             clearTuile();
@@ -163,6 +172,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             Point coordinates = getCoordinate(mouseEvent);
             Tuile t = gameView.getJTuile().getTuile();
             int lin = (int) coordinates.getX(), col = (int) coordinates.getY();
+            try {
             if(t.corresponds(plateau, lin, col)) {
                 plateau.ajouter(t, lin, col);
                 gameView.setPlateau(plateau);
@@ -177,8 +187,10 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
                     winner();
                 }
             }
-        } else {
-            resetTuilePosition();
+            }
+            catch(Exception e) {
+            	System.out.println("Tuile vide");
+            }
         }
         repaint();
         tuileMouvable = false;
@@ -194,10 +206,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
 
     }
 
-    /**
-     *
-     * @return the index of the current player
-     */
+    // @return the index of the current player
     private int nextPlayer() {
         int indexCourant = joueurs.indexOf(courant);
         courant = joueurs.get((indexCourant+1) % joueurs.size());
@@ -230,28 +239,23 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         Joueur winner = getWinner();
         JLabel winnerText = new JLabel(winner + " a gagné");
         winnerText.setFont(new Font("Serif", Font.BOLD, 75));
-
+        
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(getClass().getResource("/images/quitter.png").toURI()));
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+		  image = ImageIO.read(new File("Ressources/images/quitter.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         JButton quitter = new JButton("Quitter");
-        quitter = new JButton(new ImageIcon(image));
-        quitter.setBackground(new Color(0, 0, 0));
-        quitter.setOpaque(false);
-        quitter.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
+        quitter = new JButton(new ImageIcon(image)); quitter.setBackground(new Color(0, 0, 0)); quitter.setOpaque(false); quitter.setBorder(BorderFactory.createLineBorder(new Color(0,0,0,0)));
         quitter.addActionListener(e -> System.exit(0));
         winnerPanel.add(winnerText);
         winnerPanel.add(quitter);
         this.remove(gameView);
         this.add(winnerPanel);
-
-        this.setVisible(true);
-
+        
+        this.show();
     }
 
     private Joueur getWinner() {

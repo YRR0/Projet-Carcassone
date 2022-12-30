@@ -2,7 +2,7 @@ package poo.dominos.game.components;
 
 public class Plateau {
 
-    Tuile[][] cases;
+    public Tuile[][] cases;
 
     public Plateau(int ligne, int col) {
         cases = new Tuile[ligne][col];

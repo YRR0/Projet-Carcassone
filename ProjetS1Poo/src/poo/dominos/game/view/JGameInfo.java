@@ -4,6 +4,8 @@ import poo.dominos.game.player.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static javax.swing.JOptionPane.showInputDialog;
 
@@ -13,29 +15,28 @@ public class JGameInfo extends JComponent {
     private JPanel playerInfo;
     private JLabel playerName;
     private JLabel playerScore;
+    
     // Les informations de tous les joueurs de la partie courante
     private JPanel gameInfo;
     private JLabel[] playersNames;
     private JLabel[] playersScores;
     private Joueur[] joueurs;
 
-
-
     public JGameInfo(int nbJoueurs) {
         initPlayerInfo();
         initGameInfo(nbJoueurs);
-
         setLayout(new BorderLayout());
 
         gameInfo.setBackground(Color.DARK_GRAY);
-        playerInfo.setBackground(Color.DARK_GRAY);
         add(gameInfo, BorderLayout.CENTER);
         add(playerInfo, BorderLayout.SOUTH);
+        
     }
 
     private void initPlayerInfo() {
         playerInfo = new JPanel(new FlowLayout());
         playerName = new JLabel();
+        playerInfo.setBackground(Color.DARK_GRAY);
         playerName.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 20));
         playerScore = new JLabel();
         playerScore.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 10));
@@ -45,13 +46,13 @@ public class JGameInfo extends JComponent {
 
     private void initGameInfo(int nbJoueurs) {
         joueurs = new Joueur[nbJoueurs];
-
         gameInfo  = new JPanel();
-        gameInfo.setLayout(new GridLayout(nbJoueurs+1, 2));
+        gameInfo.setBackground(Color.DARK_GRAY); 
+        gameInfo.setLayout(new GridLayout(nbJoueurs+1, 2)); 
         playersNames = new JLabel[nbJoueurs+1];
         playersScores = new JLabel[nbJoueurs+1];
-        playersNames[0] = new JLabel("Player name", SwingConstants.CENTER);
-        playersScores[0] = new JLabel("Player score", SwingConstants.CENTER);
+        playersNames[0] = new JLabel("Name", SwingConstants.CENTER);
+        playersScores[0] = new JLabel("Score", SwingConstants.CENTER);
         styleGameInfo();
         gameInfo.add(playersNames[0]);
         gameInfo.add(playersScores[0]);
@@ -60,14 +61,15 @@ public class JGameInfo extends JComponent {
             joueurs[i-1] = new Joueur(name);
             playersNames[i] = new JLabel(name+":", SwingConstants.CENTER);
             playersScores[i] = new JLabel("0", SwingConstants.CENTER);
-            playersNames[i].setFont(new Font("Helvetica", Font.BOLD, 20));
-            playersScores[i].setFont(new Font("Helvetica", Font.BOLD, 20));
-            playersNames[i].setForeground(Color.WHITE);
-            playersScores[i].setForeground(Color.WHITE);
+            playersNames[i].setFont(new Font("Helvetica", Font.BOLD, 20)); playersNames[i].setForeground(Color.white);
+            playersScores[i].setFont(new Font("Helvetica", Font.BOLD, 20)); playersScores[i].setForeground(Color.white);
             gameInfo.add(playersNames[i]);
             gameInfo.add(playersScores[i]);
         }
     }
+    
+    // Methode rajouter pour changer des joueurs en joueurs Artificiels
+    
 
     public Joueur[] getJoueurs() {
         return joueurs;
@@ -84,22 +86,13 @@ public class JGameInfo extends JComponent {
     }
 
     private void styleGameInfo() {
-        //InputStream fontInput = getClass().getResourceAsStream("/fonts/ChivoMono-VariableFont_wght.ttf");
-        Font myFont = new Font("Times New Roman", Font.BOLD, 25);
-       /* try {
-            myFont = Font.createFont(Font.TRUETYPE_FONT, fontInput);
-            myFont.deriveFont(Font.BOLD);
-            myFont.deriveFont(10000000000000000000000000000000f);
-        } catch (FontFormatException | IOException e) {
-            System.out.println("erreure");
-        }*/
+        Font myFont = new Font("Times New Roman", Font.BOLD, 30);
         playerName.setFont(myFont);
         playerScore.setFont(myFont);
-        playerName.setForeground(new Color(253, 138, 138));
-        playerScore.setForeground(new Color(253, 138, 138));
+        playerName.setForeground(Color.LIGHT_GRAY); playerScore.setForeground(Color.LIGHT_GRAY);
         playersNames[0].setFont(myFont);
         playersScores[0].setFont(myFont);
-        playersNames[0].setForeground(Color.LIGHT_GRAY);
-        playersScores[0].setForeground(Color.LIGHT_GRAY);
+        playersNames[0].setForeground(Color.BLACK);
+        playersScores[0].setForeground(Color.BLACK);
     }
 }
