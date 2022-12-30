@@ -26,13 +26,14 @@ public class JGameInfo extends JPanel {
 
         setLayout(new BorderLayout());
 
-        gameInfo.setBackground(Color.DARK_GRAY);
+        gameInfo.setBackground(new Color(165, 85, 236));
         add(gameInfo, BorderLayout.CENTER);
         add(playerInfo, BorderLayout.SOUTH);
     }
 
     private void initPlayerInfo() {
         playerInfo = new JPanel(new FlowLayout());
+        playerInfo.setBackground(new Color(165, 85, 236));
         playerName = new JLabel();
         playerName.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 20));
         playerScore = new JLabel();

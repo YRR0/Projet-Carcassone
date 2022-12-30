@@ -28,8 +28,8 @@ public class GameView extends JPanel {
     private JButton abandonner, passerTour, turnLeft, turnRight, piocher;
 
 
-    public GameView(int nbJoueurs) {
-        initComponents(nbJoueurs);
+    public GameView(int nbJoueurs, int nbJoueursA) {
+        initComponents(nbJoueurs, nbJoueursA);
 
         setSize(WIDTH, HEIGHT);
         setLayout(null);
@@ -45,9 +45,9 @@ public class GameView extends JPanel {
         setBackground(Color.DARK_GRAY);
     }
 
-    private void initComponents(int nbJoueurs) {
+    private void initComponents(int nbJoueurs, int nbJoueursA) {
         plateau = new JPlateau(NB_LIGNES, NB_COLS);
-        gameInfo = new JGameInfo(nbJoueurs);
+        gameInfo = new JGameInfo(nbJoueurs, nbJoueursA);
         jTuile = new JTuile();
         jTuile.setTuile(null);
         BufferedImage imagePioche = null, imageG = null , imageD = null , imageAbandonner = null,imagePasser=null;

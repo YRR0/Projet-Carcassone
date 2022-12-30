@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameController extends JFrame implements MouseMotionListener, MouseListener {
@@ -29,10 +30,8 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
     private ArrayList<Joueur> joueurs;
     private Joueur courant;
     private boolean tuileMouvable;
-    private int joueurArtificiel;
-    public GameController(int nbJoueurs, int jArtificiel) {
-        joueurArtificiel = jArtificiel;
-        gameView = new GameView(nbJoueurs);
+    public GameController(int nbJoueurs, int nbJoueursA) {
+        gameView = new GameView(nbJoueurs, nbJoueursA);
         initGame();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(gameView);
@@ -49,6 +48,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             sac.ajouterTuile(t);
         }
         plateau = new Plateau(GameView.NB_LIGNES, GameView.NB_COLS);
+        System.out.println(Arrays.toString(gameView.getJoueurs()));
         joueurs = new ArrayList<>(List.of(gameView.getJoueurs()));
         courant = joueurs.get(0);
     }
@@ -163,7 +163,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             Point coordinates = getCoordinate(mouseEvent);
             Tuile t = gameView.getJTuile().getTuile();
             int lin = (int) coordinates.getX(), col = (int) coordinates.getY();
-            if(t.corresponds(plateau, lin, col)) {
+            if(t != null && t.corresponds(plateau, lin, col)) {
                 plateau.ajouter(t, lin, col);
                 gameView.setPlateau(plateau);
                 boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,

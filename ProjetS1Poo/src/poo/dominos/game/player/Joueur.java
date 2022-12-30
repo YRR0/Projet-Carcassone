@@ -30,6 +30,9 @@ public class Joueur {
     public Tuile piocher(Sac s) {
         return s.retirer();
     }
+    public int getId() {
+        return id;
+    }
 
     public void tourner(Tuile t, int nbTour) { // Des tours de 90°
         // Calcule de nombre de tour
@@ -40,11 +43,13 @@ public class Joueur {
         }
     }
 
-    public void poser(Plateau p, Tuile t, int i, int j) {
+    public boolean poser(Plateau p, Tuile t, int i, int j) {
         if(t.corresponds(p, i, j)) {
             p.ajouter(t, i ,j);
+            return true;
         } else {
             System.out.println("Impossible de poser la tuile à (" + i + ", " + j + ")");
+            return false;
         }
     }
 

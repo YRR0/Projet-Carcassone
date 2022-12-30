@@ -31,6 +31,7 @@ public class GameView extends JPanel {
 
         setSize(WIDTH, HEIGHT);
         setLayout(null);
+        setBackground(new Color(165, 85, 236));
         add(plateau);
         add(gameInfo);
         add(jTuile);
