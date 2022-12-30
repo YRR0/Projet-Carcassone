@@ -92,7 +92,7 @@ public class HomeView extends JPanel {
         nbJoueursDominos.setPaintLabels(true);
         nbJoueursDominos.setPaintTicks(true);
 
-        nbJoueursADominos = new JSlider(2, 4, 2);
+        nbJoueursADominos = new JSlider(0, 2, 0);
         nbJoueursADominos.setMajorTickSpacing(1);
         nbJoueursADominos.setMinorTickSpacing(1);
         nbJoueursADominos.setPaintLabels(true);

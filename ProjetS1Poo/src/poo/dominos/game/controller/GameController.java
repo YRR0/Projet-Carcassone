@@ -4,6 +4,7 @@ import poo.dominos.game.components.Plateau;
 import poo.dominos.game.components.Sac;
 import poo.dominos.game.components.Tuile;
 import poo.dominos.game.player.Joueur;
+import poo.dominos.game.player.JoueurArtificiel;
 import poo.dominos.game.view.GameView;
 import poo.dominos.game.view.JPlateau;
 import poo.dominos.game.view.JTuile;
@@ -48,7 +49,6 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             sac.ajouterTuile(t);
         }
         plateau = new Plateau(GameView.NB_LIGNES, GameView.NB_COLS);
-        System.out.println(Arrays.toString(gameView.getJoueurs()));
         joueurs = new ArrayList<>(List.of(gameView.getJoueurs()));
         courant = joueurs.get(0);
     }
@@ -58,8 +58,10 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         plateau.ajouter(initiale, plateau.nbLin() / 2 - 1, plateau.nbCol() / 2 - 1);
         gameView.setPlateau(plateau);
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
-        System.out.println(gameView.getJTuile().getX() + " " + gameView.getJTuile().getY());
         gameView.enable_piocher(true);
+        if(courant instanceof JoueurArtificiel) {
+            aiPlayer();
+        }
         gameView.piocher_addActionListener(e -> {
             gameView.enable_piocher(false);
             gameView.setjTuile(courant.piocher(sac));
@@ -194,6 +196,32 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
 
     }
 
+    private void aiPlayer() {
+        Tuile t = courant.piocher(sac);
+        gameView.setjTuile(t);
+        JoueurArtificiel j = (JoueurArtificiel) courant;
+        if(j.coupPossible(plateau, t)) {
+            courant.tourner(t, j.getNbTours());
+            gameView.setjTuile(t);
+            int lin = j.getLigne(), col = j.getCol();
+            courant.poser(plateau, t, lin, col);
+            boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,
+                    c2 = plateau.getTuile(lin, col+1) == null, c3 = plateau.getTuile(lin+1, col) == null;
+            int nbPoints = t.nbPoints(c0, c1, c2, c3);
+            courant.gangerPoints(nbPoints);
+            gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
+            gameView.updatePlayerInfo(joueurs.indexOf(courant), courant.getNbPoints());
+            gameView.setPlateau(plateau);
+        } else {
+            System.out.println("impossible");
+        }
+        repaint();
+        if(sac.estVide()) {
+            winner();
+        }
+        nextPlayer();
+    }
+
     /**
      *
      * @return the index of the current player
@@ -202,7 +230,9 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         int indexCourant = joueurs.indexOf(courant);
         courant = joueurs.get((indexCourant+1) % joueurs.size());
         clearTuile();
+        resetTuilePosition();
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
+        if(courant instanceof JoueurArtificiel) aiPlayer();
         return indexCourant;
     }
 
