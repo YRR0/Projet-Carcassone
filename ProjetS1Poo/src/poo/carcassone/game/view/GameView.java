@@ -1,5 +1,6 @@
 package poo.carcassone.game.view;
 
+import poo.carcassone.game.components.Partisan;
 import poo.carcassone.game.components.Plateau;
 import poo.carcassone.game.components.tuiles.Tuile;
 import poo.carcassone.game.player.Joueur;
@@ -19,6 +20,7 @@ public class GameView extends JPanel {
     private JPlateau plateau;
     private JGameInfo gameInfo;
     private JTuile jTuile;
+    private JPartisan jPartisan;
     private JButton abandonner;
     private JButton passerTour;
     private JButton turnLeft;
@@ -35,6 +37,7 @@ public class GameView extends JPanel {
         add(plateau);
         add(gameInfo);
         add(jTuile);
+        add(jPartisan);
         add(abandonner);
         add(passerTour);
         add(turnLeft);
@@ -47,7 +50,7 @@ public class GameView extends JPanel {
         plateau = new JPlateau(NB_LIGNE, NB_COLS);
         gameInfo = new JGameInfo(nbJoueurs);
         jTuile = new JTuile();
-        jTuile.setTuile(null);
+        jPartisan = new JPartisan();
         abandonner = new JButton("Abandonner");
         passerTour = new JButton("Passer mon tour");
         turnLeft = new JButton("<-");
@@ -62,6 +65,7 @@ public class GameView extends JPanel {
         plateau.setLocation((int) (0.2 * getWidth()), 0);
         plateau.setSize((int) (0.8 * getWidth()), (int) (0.8 * getHeight()));
         jTuile.setLocation((int) (0.5 * getWidth()), (int) (0.8 * getHeight()));
+        jPartisan.setLocation((int) (0.7 * getWidth()), (int) (0.8 * getHeight()));
         piocher.setSize(poo.dominos.game.view.JTuile.TUILE_WIDTH, poo.dominos.game.view.JTuile.TUILE_HEIGHT);
         piocher.setLocation(getWidth() - poo.dominos.game.view.JTuile.TUILE_WIDTH - 10, (int) (0.8 * getHeight()));
         turnLeft.setSize(getWidth() / 10, getHeight()/12);
@@ -94,8 +98,11 @@ public class GameView extends JPanel {
         gameInfo.setGameInfo(i, score);
     }
 
-    public void setjTuile(Tuile t) {
+    public void setTuile(Tuile t) {
         jTuile.setTuile(t);
+    }
+    public void setPartisan(Partisan p) {
+        jPartisan.setPartisan(p);
     }
     public void turnLeft_addListener(ActionListener actionListener) {
         turnLeft.addActionListener(actionListener);
@@ -105,7 +112,6 @@ public class GameView extends JPanel {
         turnRight.setEnabled(enabled);
         turnLeft.setEnabled(enabled);
         abandonner.setEnabled(enabled);
-        passerTour.setEnabled(enabled);
     }
 
     public void enable_piocher(boolean enabled) {
@@ -130,6 +136,10 @@ public class GameView extends JPanel {
 
     public JTuile getJTuile() {
         return jTuile;
+    }
+
+    public JPartisan getjPartisan() {
+        return jPartisan;
     }
 
     public void sacVide() {

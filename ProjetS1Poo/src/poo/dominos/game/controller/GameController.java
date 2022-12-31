@@ -18,12 +18,13 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameController extends JFrame implements MouseMotionListener, MouseListener {
+public class GameController extends JFrame implements MouseMotionListener, MouseListener, Serializable {
 
     private final GameView gameView;
     private Plateau plateau;
