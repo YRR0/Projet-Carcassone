@@ -10,6 +10,8 @@ Pour pouvoir compiler le projet lancez cette commande à partir du repertoire pe
     javac -classpath ProjetS1Poo/src/ ProjetS1Poo/src/poo/Main.java 
 ```
 
+## Exécution
+
 Pour pouvoir exécuter le projet lancez cette commande à partir du meme repertoire que la compilation
 
 ```bash
