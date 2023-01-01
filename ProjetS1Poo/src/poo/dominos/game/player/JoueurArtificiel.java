@@ -3,6 +3,7 @@ package poo.dominos.game.player;
 import poo.dominos.game.components.Plateau;
 import poo.dominos.game.components.Tuile;
 
+import java.io.Serializable;
 import java.util.Random;
 
 public class JoueurArtificiel extends Joueur {
@@ -13,7 +14,7 @@ public class JoueurArtificiel extends Joueur {
     }
 
     // une classe interner pour garder la meilleure ligne de placement et la meilleure colonne
-    public static class Instruction{
+    public static class Instruction implements Serializable {
         public int i;
         public int j;
         public int tour;

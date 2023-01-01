@@ -1,6 +1,7 @@
 package poo.carcassone.game.view;
 
 import poo.carcassone.game.player.Joueur;
+import poo.carcassone.game.player.JoueurArtificiel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +21,9 @@ public class JGameInfo extends JPanel {
 
 
 
-    public JGameInfo(int nbJoueurs) {
+    public JGameInfo(int nbJoueurs, int nbJoueursA) {
         initPlayerInfo();
-        initGameInfo(nbJoueurs);
+        initGameInfo(nbJoueurs, nbJoueursA);
 
         setLayout(new BorderLayout());
 
@@ -42,13 +43,13 @@ public class JGameInfo extends JPanel {
         playerInfo.add(playerScore);
     }
 
-    private void initGameInfo(int nbJoueurs) {
-        joueurs = new Joueur[nbJoueurs];
+    private void initGameInfo(int nbJoueurs, int nbJoueursA) {
+        joueurs = new Joueur[nbJoueurs + nbJoueursA];
 
         gameInfo  = new JPanel();
-        gameInfo.setLayout(new GridLayout(nbJoueurs+1, 2));
-        playersNames = new JLabel[nbJoueurs+1];
-        playersScores = new JLabel[nbJoueurs+1];
+        gameInfo.setLayout(new GridLayout(nbJoueurs+nbJoueursA+1, 2));
+        playersNames = new JLabel[nbJoueurs+1+nbJoueursA];
+        playersScores = new JLabel[nbJoueurs+1+nbJoueursA];
         playersNames[0] = new JLabel("Player name", SwingConstants.CENTER);
         playersScores[0] = new JLabel("Player score", SwingConstants.CENTER);
         styleGameInfo();
@@ -58,6 +59,17 @@ public class JGameInfo extends JPanel {
             String name = showInputDialog(this, "Donner le nom du joueur " + i);
             joueurs[i-1] = new Joueur(name);
             playersNames[i] = new JLabel(name+":", SwingConstants.CENTER);
+            playersScores[i] = new JLabel("0", SwingConstants.CENTER);
+            playersNames[i].setFont(new Font("Helvetica", Font.BOLD, 20));
+            playersScores[i].setFont(new Font("Helvetica", Font.BOLD, 20));
+            playersNames[i].setForeground(Color.WHITE);
+            playersScores[i].setForeground(Color.WHITE);
+            gameInfo.add(playersNames[i]);
+            gameInfo.add(playersScores[i]);
+        }
+        for(int i = nbJoueurs + 1; i < nbJoueurs + nbJoueursA + 1; i++) {
+            joueurs[i-1] = new JoueurArtificiel();
+            playersNames[i] = new JLabel(joueurs[i-1].nom +":", SwingConstants.CENTER);
             playersScores[i] = new JLabel("0", SwingConstants.CENTER);
             playersNames[i].setFont(new Font("Helvetica", Font.BOLD, 20));
             playersScores[i].setFont(new Font("Helvetica", Font.BOLD, 20));

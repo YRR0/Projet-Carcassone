@@ -9,6 +9,7 @@ import poo.carcassone.game.view.GameView;
 import poo.carcassone.game.view.JPartisan;
 import poo.carcassone.game.view.JPlateau;
 import poo.carcassone.game.view.JTuile;
+import poo.carcassone.game.player.JoueurArtificiel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +25,8 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
     private ArrayList<Joueur> joueurs;
     private Joueur courant;
     private boolean tuileMouvable, partisanMouvable;
-    public GameController(int nbJoueurs) {
-        gameView = new GameView(nbJoueurs);
+    public GameController(int nbJoueurs, int nbJoueursA) {
+        gameView = new GameView(nbJoueurs, nbJoueursA);
         initGame();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(gameView);
@@ -49,6 +50,9 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
 
     public void start() {
         gameView.enable_piocher(true);
+        if(courant instanceof JoueurArtificiel) {
+            aiPlayer();
+        }
         gameView.piocher_addActionListener(e -> {
             gameView.enable_piocher(false);
             tuileMouvable = true;
@@ -233,6 +237,34 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
 
     }
 
+    private void aiPlayer() {
+        Tuile t = courant.piocher(sac);
+        gameView.setTuile(t);
+        JoueurArtificiel j = (JoueurArtificiel) courant;
+        if(j.coupPossible(plateau, t)) {
+            courant.tourner(t, j.getNbTours());
+            gameView.setTuile(t);
+            int lin = j.getLigne(), col = j.getCol();
+            courant.poser(plateau, t, lin, col);
+            double r = Math.random();
+            if(r < 0.4) {
+                courant.poserPartisans(plateau, lin, col, 4);
+            }
+            int nbPoints = 10;
+            courant.gangerPoints(nbPoints);
+            gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
+            gameView.updatePlayerInfo(joueurs.indexOf(courant), courant.getNbPoints());
+            gameView.setPlateau(plateau);
+        } else {
+            System.out.println("impossible");
+        }
+        repaint();
+        if(sac.estVide()) {
+            winner();
+        }
+        nextPlayer();
+    }
+
     /**
      *
      * @return the index of the current player
@@ -244,6 +276,7 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         resetTuilePosition();
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
         gameView.setPartisan(new Partisan(courant.getCouleur()));
+        if(courant instanceof JoueurArtificiel) aiPlayer();
         return indexCourant;
     }
 

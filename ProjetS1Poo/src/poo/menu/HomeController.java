@@ -18,7 +18,7 @@ public class HomeController extends JFrame {
             gameController.start();
         });
         homeView.carcassoneBtn.addActionListener(e -> {
-            poo.carcassone.game.controller.GameController gameController = new poo.carcassone.game.controller.GameController(homeView.getNbJoueursCarcassone());
+            poo.carcassone.game.controller.GameController gameController = new poo.carcassone.game.controller.GameController(homeView.getNbJoueursCarcassone(), homeView.getNbJoueursACarcassone());
             this.dispose();
             System.out.println(gameController);
             gc = gameController;

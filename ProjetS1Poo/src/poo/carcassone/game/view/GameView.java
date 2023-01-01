@@ -28,8 +28,8 @@ public class GameView extends JPanel {
     private JButton piocher;
 
 
-    public GameView(int nbJoueurs) {
-        initComponents(nbJoueurs);
+    public GameView(int nbJoueurs, int nbJoueursA) {
+        initComponents(nbJoueurs, nbJoueursA);
 
         setSize(WIDTH, HEIGHT);
         setLayout(null);
@@ -46,9 +46,9 @@ public class GameView extends JPanel {
         reposition();
     }
 
-    private void initComponents(int nbJoueurs) {
+    private void initComponents(int nbJoueurs, int nbJoueursA) {
         plateau = new JPlateau(NB_LIGNE, NB_COLS);
-        gameInfo = new JGameInfo(nbJoueurs);
+        gameInfo = new JGameInfo(nbJoueurs, nbJoueursA);
         jTuile = new JTuile();
         jPartisan = new JPartisan();
         abandonner = new JButton("Abandonner");
