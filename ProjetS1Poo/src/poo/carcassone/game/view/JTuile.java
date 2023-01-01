@@ -6,6 +6,7 @@ import poo.carcassone.game.components.tuiles.Tuile;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -41,14 +42,14 @@ public class JTuile extends JPanel {
         String tuileDescription = "";
         try {
             if(tuile == null) {
-                image =ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Carcassone/back.jpg")));
+                image =ImageIO.read(new File("ProjetS1Poo/src/Resources/images/Carcassone/back.jpg"));
                 g.drawImage(image, 0, 0, TUILE_WIDTH, TUILE_HEIGHT, null);
             } else  {
                 tuileDescription = tuile.toString();
-                image =ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Carcassone/Tuiles/" + tuileDescription + ".png")));
+                image =ImageIO.read(new File("ProjetS1Poo/src/Resources/images/Carcassone/Tuiles/" + tuileDescription + ".png"));
                 g.drawImage(image, 0, 0, TUILE_WIDTH, TUILE_HEIGHT, null);
                 if(tuile.getPartisan() != null) {
-                    partisanImg = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Carcassone/Partisans/" + tuile.getPartisan().getCouleur() + ".png")));
+                    partisanImg = ImageIO.read(new File("ProjetS1Poo/src/Resources/images/Carcassone/Partisans/" + tuile.getPartisan().getCouleur() + ".png"));
                     Point partisanPos = getPartisanPosition();
                     g.drawImage(partisanImg, (int) partisanPos.getX(), (int) partisanPos.getY(), JPartisan.PARTISAN_WIDTH, JPartisan.PARTISAN_HEIGHT, this);
                 }

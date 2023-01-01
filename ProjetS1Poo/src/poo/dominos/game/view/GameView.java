@@ -11,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class GameView extends JPanel {
 
@@ -52,15 +50,13 @@ public class GameView extends JPanel {
         jTuile.setTuile(null);
         BufferedImage imagePioche = null, imageG = null , imageD = null , imageAbandonner = null,imagePasser=null;
         try {
-            imagePioche = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/dominos.jpg")).toURI()));
-            imageG = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/g.png")).toURI()));
-            imageD = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/d.png")).toURI()));
-            imageAbandonner = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/abandonner.png")).toURI()));
-            imagePasser = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/passer.png")).toURI()));
+            imagePioche = ImageIO.read(new File("ProjetS1Poo/src/Resources/images/dominos.jpg"));
+            imageG = ImageIO.read(new File(("ProjetS1Poo/src/Resources/images/g.png")));
+            imageD = ImageIO.read(new File("ProjetS1Poo/src/Resources/images/d.png"));
+            imageAbandonner = ImageIO.read(new File("ProjetS1Poo/src/Resources/images/abandonner.png"));
+            imagePasser = ImageIO.read(new File("ProjetS1Poo/src/Resources/images/passer.png"));
         } catch (IOException e) {
             System.out.println("Erreur dans le chargement initComponents de GameView ");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
         piocher = new JButton(new ImageIcon(imagePioche));
         abandonner = new JButton(new ImageIcon(imageAbandonner));
@@ -156,7 +152,7 @@ public class GameView extends JPanel {
     }
 
     public void sacVide() {
-        piocher.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Dominos/empty.png"))));
+        piocher.setIcon(new ImageIcon("ProjetS1Poo/src/Resources/images/Dominos/empty.png"));
     }
 
 }

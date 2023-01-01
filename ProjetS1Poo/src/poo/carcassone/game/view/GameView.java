@@ -55,7 +55,7 @@ public class GameView extends JPanel {
         passerTour = new JButton("Passer mon tour");
         turnLeft = new JButton("<-");
         turnRight = new JButton("->");
-        piocher = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Dominos/dominos.jpg"))));
+        piocher = new JButton(new ImageIcon("ProjetS1Poo/src/Resources/images/Dominos/dominos.jpg"));
         enableControll(false);
     }
 
@@ -143,6 +143,6 @@ public class GameView extends JPanel {
     }
 
     public void sacVide() {
-        piocher.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Dominos/empty.png"))));
+        piocher.setIcon(new ImageIcon("ProjetS1Poo/src/Resources/images/Dominos/empty.png"));
     }
 }

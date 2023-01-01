@@ -6,9 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Objects;
 
 public class HomeView extends JPanel {
 
@@ -24,12 +21,12 @@ public class HomeView extends JPanel {
 
         private BufferedImage image;
 
-        public ImagePanel(URL path) {
+        public ImagePanel(String path) {
             setLayout(null);
             try {
-                image = ImageIO.read(new File(path.toURI()));
+                image = ImageIO.read(new File(path));
                 setSize(image.getWidth(), image.getHeight());
-            } catch (IOException | URISyntaxException e) {
+            } catch (IOException e) {
                 System.err.println("Erreure dans le chargement de l'image ImagePanel");
             }
         }
@@ -67,16 +64,16 @@ public class HomeView extends JPanel {
         setSize(WIDTH, HEIGHT);
         setLayout(new GridLayout(1, 2));
 
-        dominosPnl = new ImagePanel(Objects.requireNonNull(getClass().getResource("/images/R.jpg")));
-        carcassonePnl = new ImagePanel(Objects.requireNonNull(getClass().getResource("/images/c2.jpg")));
+        dominosPnl = new ImagePanel("ProjetS1Poo/src/Resources/images/R.jpg");
+        carcassonePnl = new ImagePanel("ProjetS1Poo/src/Resources/images/c2.jpg");
 
         dominosPnl.setBackground(new Color(0,0,0));
         carcassonePnl.setBackground(new Color(255, 255, 255));
     }
 
     private void initButtons() {
-        dominosBtn = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/button1.png"))));
-        carcassoneBtn = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/button3.png"))));
+        dominosBtn = new JButton(new ImageIcon("ProjetS1Poo/src/Resources/images/button1.png"));
+        carcassoneBtn = new JButton(new ImageIcon("ProjetS1Poo/src/Resources/images/button3.png"));
         loadDominos = new JButton("Load");
         loadCarcassone = new JButton("Load");
 
