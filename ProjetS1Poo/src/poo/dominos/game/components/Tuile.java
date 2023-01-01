@@ -1,9 +1,10 @@
 package poo.dominos.game.components;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Tuile {
+public class Tuile implements Serializable {
 
     public int[][] cotes = new int[4][3];;
     private static final Random rand = new Random();

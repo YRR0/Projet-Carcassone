@@ -1,6 +1,8 @@
 package poo.dominos.game.components;
 
-public class Plateau {
+import java.io.Serializable;
+
+public class Plateau implements Serializable {
 
     Tuile[][] cases;
 
@@ -19,6 +21,7 @@ public class Plateau {
     private boolean estDansLimites(int i, int j) {
         return (((i >= 0) && i < cases.length) && ((j >= 0) && j < cases[0].length));
     }
+
     public Tuile getTuile(int i, int j) {
         if(estDansLimites(i, j)) return cases[i][j];
         return null;

@@ -5,9 +5,10 @@ import poo.carcassone.game.components.Plateau;
 import poo.carcassone.game.components.Sac;
 import poo.carcassone.game.components.tuiles.Tuile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Joueur {
+public class Joueur implements Serializable {
     public final String nom;
     public final int id;
     private static int nextId = 0;

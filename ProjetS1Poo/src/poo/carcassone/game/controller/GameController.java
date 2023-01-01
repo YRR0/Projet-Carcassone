@@ -12,13 +12,12 @@ import poo.carcassone.game.view.JTuile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameController extends JFrame implements MouseMotionListener, MouseListener {
+public class GameController extends JFrame implements MouseMotionListener, MouseListener, Serializable {
     private final GameView gameView;
     private Plateau plateau;
     private Sac sac;
@@ -41,16 +40,14 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         plateau = new Plateau(GameView.NB_LIGNE, GameView.NB_COLS);
         joueurs = new ArrayList<>(List.of(gameView.getJoueurs()));
         courant = joueurs.get(0);
-    }
-
-    public void start() {
         Tuile initiale = sac.retirer();
-        System.out.println(initiale);
-        System.out.println(plateau.nbLin() / 2 + ", " + plateau.nbCol() / 2);
         plateau.ajouter(initiale, plateau.nbLin() / 2 - 1, plateau.nbCol() / 2 - 1);
         gameView.setPlateau(plateau);
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
         gameView.setPartisan(new Partisan(courant.getCouleur()));
+    }
+
+    public void start() {
         gameView.enable_piocher(true);
         gameView.piocher_addActionListener(e -> {
             gameView.enable_piocher(false);
@@ -90,6 +87,18 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             resetTuilePosition();
             repaint();
         });
+        addSaveListener();
+    }
+
+    private void addSaveListener() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                save();
+            }
+        });
+
     }
 
     private boolean isInTuile(MouseEvent mouseEvent) {
@@ -280,4 +289,32 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         }
         return res;
     }
+
+    public void save() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("saveCarcassone.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+            System.out.println("Object info saved");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static GameController load() {
+        GameController res = null;
+        try {
+            FileInputStream fileIn = new FileInputStream("saveCarcassone.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            res = (GameController) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
 }

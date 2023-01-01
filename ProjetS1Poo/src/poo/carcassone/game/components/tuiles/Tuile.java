@@ -3,7 +3,9 @@ package poo.carcassone.game.components.tuiles;
 import poo.carcassone.game.components.Partisan;
 import poo.carcassone.game.components.Plateau;
 
-public class Tuile {
+import java.io.Serializable;
+
+public class Tuile implements Serializable {
     private final Paysage[] cotes;
     private Partisan partisan;
     private int cotePartisan;

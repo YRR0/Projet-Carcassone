@@ -1,9 +1,10 @@
 package poo.dominos.game.components;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Sac {
+public class Sac implements Serializable {
 
     private final ArrayList<Tuile> tuiles;
     private int capacite;

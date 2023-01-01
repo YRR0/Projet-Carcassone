@@ -61,7 +61,7 @@ public class JoueurArtificiel extends Joueur {
                         res = true;
                     }
                     // Supprimer l'element une fois la supposition fini
-                    p.ajouter(null, i, j);
+                    p.ajouter((Tuile) null, i, j);
                 }
 
                 a.tourner();
@@ -89,7 +89,7 @@ public class JoueurArtificiel extends Joueur {
                         res = true;
                     }
                     // Supprimer l'element une fois la supposition fini
-                    p.ajouter(null, i, j);
+                    p.ajouter((Tuile) null, i, j);
                 }
 
                 a.tourner();
@@ -116,7 +116,7 @@ public class JoueurArtificiel extends Joueur {
                         res = true;
                     }
                     // Supprimer l'element une fois la supposition fini
-                    p.ajouter(null, i, j);
+                    p.ajouter((Tuile) null, i, j);
                 }
 
                 a.tourner();
@@ -144,7 +144,7 @@ public class JoueurArtificiel extends Joueur {
                         res = true;
                     }
                     // Supprimer l'element une fois la supposition fini
-                    p.ajouter(null, i, j);
+                    p.ajouter((Tuile) null, i, j);
                 }
                 // Retour de la tuile à sa position de depart
                 a.tourner();

@@ -3,7 +3,9 @@ package poo.carcassone.game.components;
 
 import poo.carcassone.game.components.tuiles.Tuile;
 
-public class Plateau {
+import java.io.Serializable;
+
+public class Plateau implements Serializable {
 
     Tuile[][] cases;
 

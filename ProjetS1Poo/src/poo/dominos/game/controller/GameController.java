@@ -12,13 +12,9 @@ import poo.dominos.game.view.JTuile;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,13 +48,13 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         plateau = new Plateau(GameView.NB_LIGNES, GameView.NB_COLS);
         joueurs = new ArrayList<>(List.of(gameView.getJoueurs()));
         courant = joueurs.get(0);
-    }
-
-    public void start() {
         Tuile initiale = sac.retirer();
         plateau.ajouter(initiale, plateau.nbLin() / 2 - 1, plateau.nbCol() / 2 - 1);
         gameView.setPlateau(plateau);
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
+    }
+
+    public void start() {
         gameView.enable_piocher(true);
         if(courant instanceof JoueurArtificiel) {
             aiPlayer();
@@ -100,6 +96,13 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             clearTuile();
             resetTuilePosition();
             repaint();
+        });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                save();
+            }
         });
     }
 
@@ -169,8 +172,8 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             if(t != null && t.corresponds(plateau, lin, col)) {
                 plateau.ajouter(t, lin, col);
                 gameView.setPlateau(plateau);
-                boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,
-                        c2 = plateau.getTuile(lin, col+1) == null, c3 = plateau.getTuile(lin+1, col) == null;
+                boolean c0 = plateau.getTuile(lin, col-1) != null, c1 = plateau.getTuile(lin-1, col) != null,
+                        c2 = plateau.getTuile(lin, col+1) != null, c3 = plateau.getTuile(lin+1, col) != null;
                 int nbPoints = t.nbPoints(c0, c1, c2, c3);
                 courant.gangerPoints(nbPoints);
                 gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
@@ -206,8 +209,8 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
             gameView.setjTuile(t);
             int lin = j.getLigne(), col = j.getCol();
             courant.poser(plateau, t, lin, col);
-            boolean c0 = plateau.getTuile(lin, col-1) == null, c1 = plateau.getTuile(lin-1, col) == null,
-                    c2 = plateau.getTuile(lin, col+1) == null, c3 = plateau.getTuile(lin+1, col) == null;
+            boolean c0 = plateau.getTuile(lin, col-1) != null, c1 = plateau.getTuile(lin-1, col) != null,
+                    c2 = plateau.getTuile(lin, col+1) != null, c3 = plateau.getTuile(lin+1, col) != null;
             int nbPoints = t.nbPoints(c0, c1, c2, c3);
             courant.gangerPoints(nbPoints);
             gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
@@ -289,6 +292,33 @@ public class GameController extends JFrame implements MouseMotionListener, Mouse
         Joueur res = joueurs.get(0);
         for(Joueur joueur : joueurs) {
             if(joueur.getNbPoints() > res.getNbPoints()) res = joueur;
+        }
+        return res;
+    }
+
+    public void save() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("saveDominos.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+            System.out.println("Object info saved");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static GameController load() {
+        GameController res = null;
+        try {
+            FileInputStream fileIn = new FileInputStream("saveDominos.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            res = (GameController) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return res;
     }

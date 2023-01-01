@@ -5,11 +5,12 @@ import poo.carcassone.game.components.tuiles.Pres;
 import poo.carcassone.game.components.tuiles.Tuile;
 import poo.carcassone.game.components.tuiles.Ville;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Sac {
+public class Sac implements Serializable {
 
     private final ArrayList<Tuile> tuiles;
     private static final Random rand = new Random();

@@ -4,7 +4,9 @@ import poo.dominos.game.components.Plateau;
 import poo.dominos.game.components.Sac;
 import poo.dominos.game.components.Tuile;
 
-public class Joueur {
+import java.io.Serializable;
+
+public class Joueur implements Serializable {
 
     public final String nom;
     public final int id;

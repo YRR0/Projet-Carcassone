@@ -1,4 +1,4 @@
-package poo.menu.view;
+package poo.menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,10 +14,10 @@ public class HomeView extends JPanel {
 
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int WIDTH = (int) screenSize.getWidth(), HEIGHT = (int) screenSize.getHeight();
-    private JButton dominosBtn, carcassoneBtn;
+    JButton dominosBtn, carcassoneBtn, loadDominos, loadCarcassone;
     private JPanel dominosPnl, carcassonePnl;
-    private JSlider nbJoueursDominos, nbJoueursCarcassone, nbJoueursADominos;
-    private JLabel dominosPlayersLbl, carcassonePlayersLbl;
+    private JSlider nbJoueursDominos, nbJoueursCarcassone, nbJoueursADominos, nbJoueursACarcassone;
+    private JLabel dominosPlayersLbl, carcassonePlayersLbl, IADominosLbl, IACarcassoneLbl;
 
 
     private static class ImagePanel extends JPanel {
@@ -53,17 +53,14 @@ public class HomeView extends JPanel {
         dominosPnl.add(dominosPlayersLbl);
         carcassonePnl.add(carcassonePlayersLbl);
         dominosPnl.add(nbJoueursADominos);
+        carcassonePnl.add(nbJoueursACarcassone);
+        dominosPnl.add(loadDominos);
+        carcassonePnl.add(loadCarcassone);
+        dominosPnl.add(IADominosLbl);
+        carcassonePnl.add(IACarcassoneLbl);
 
         add(dominosPnl);
         add(carcassonePnl);
-    }
-
-    public JButton getDominosBtn() {
-        return dominosBtn;
-    }
-
-    public JButton getCarcassoneBtn() {
-        return carcassoneBtn;
     }
 
     private void initPanels() {
@@ -80,9 +77,14 @@ public class HomeView extends JPanel {
     private void initButtons() {
         dominosBtn = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/button1.png"))));
         carcassoneBtn = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/button3.png"))));
+        loadDominos = new JButton("Load");
+        loadCarcassone = new JButton("Load");
 
         dominosBtn.setBackground(Color.BLACK);
         carcassoneBtn.setBackground(Color.WHITE);
+        loadDominos.setBackground(Color.WHITE);
+        loadCarcassone.setBackground(Color.BLACK);
+        loadCarcassone.setForeground(Color.WHITE);
     }
 
     private void initNbPlayers() {
@@ -104,29 +106,46 @@ public class HomeView extends JPanel {
         nbJoueursCarcassone.setPaintTicks(true);
         nbJoueursCarcassone.setPaintLabels(true);
 
+        nbJoueursACarcassone = new JSlider(0, 2, 0);
+        nbJoueursACarcassone.setMajorTickSpacing(1);
+        nbJoueursACarcassone.setMinorTickSpacing(1);
+        nbJoueursACarcassone.setPaintTicks(true);
+        nbJoueursACarcassone.setPaintLabels(true);
+
         dominosPlayersLbl = new JLabel("Selectionnez le nombre de joueurs");
         carcassonePlayersLbl = new JLabel("Selectionnez le nombre de joueurs");
+        IADominosLbl = new JLabel("Selectionnez le nombre de IA");
+        IACarcassoneLbl = new JLabel("Selectionnez le nombre de IA");
         Font labelsFont = new Font("ariel", Font.BOLD, 25);
         dominosPlayersLbl.setFont(labelsFont);
         carcassonePlayersLbl.setFont(labelsFont);
+        IADominosLbl.setFont(labelsFont);
+        IACarcassoneLbl.setFont(labelsFont);
         dominosPlayersLbl.setForeground(Color.WHITE);
+        IADominosLbl.setForeground(Color.WHITE);
     }
 
     private void reposition() {
         dominosBtn.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.5 * HEIGHT) - 29, 210, 58);
         carcassoneBtn.setBounds((int) (0.25 * WIDTH) - 125, (int) (0.5 * HEIGHT) - 29, 250, 58);
+        loadDominos.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.6 * HEIGHT) - 29, 210, 58);
+        loadCarcassone.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.6 * HEIGHT) - 29, 210, 58);
 
         nbJoueursDominos.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.7 * HEIGHT), 210, 58);
         nbJoueursDominos.setForeground(Color.WHITE);
         nbJoueursDominos.setBackground(Color.BLACK);
-        nbJoueursADominos.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.75 * HEIGHT), 210, 58);
+        nbJoueursADominos.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.85 * HEIGHT), 210, 58);
         nbJoueursADominos.setForeground(Color.WHITE);
         nbJoueursADominos.setBackground(Color.BLACK);
         nbJoueursCarcassone.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.7 * HEIGHT), 210, 58);
         nbJoueursCarcassone.setBackground(Color.WHITE);
+        nbJoueursACarcassone.setBounds((int) (0.25 * WIDTH) - 105, (int) (0.85 * HEIGHT), 210, 58);
+        nbJoueursACarcassone.setBackground(Color.WHITE);
 
-        dominosPlayersLbl.setBounds((int) (0.25 * WIDTH) - 220, (int) (0.6 * HEIGHT), 440, 58);
-        carcassonePlayersLbl.setBounds((int) (0.25 * WIDTH) - 220, (int) (0.6 * HEIGHT), 440, 58);
+        dominosPlayersLbl.setBounds((int) (0.25 * WIDTH) - 220, (int) (0.65 * HEIGHT) - 29, 440, 58);
+        carcassonePlayersLbl.setBounds((int) (0.25 * WIDTH) - 220, (int) (0.65 * HEIGHT) - 29, 440, 58);
+        IADominosLbl.setBounds((int) (0.25 * WIDTH) - 180, (int) (0.8 * HEIGHT) - 29, 360, 58);
+        IACarcassoneLbl.setBounds((int) (0.25 * WIDTH) - 180, (int) (0.8 * HEIGHT) - 29, 360, 58);
     }
 
     public int getNbJoueursDominos() {
@@ -139,5 +158,9 @@ public class HomeView extends JPanel {
 
     public int getNbJoueursCarcassone() {
         return nbJoueursCarcassone.getValue();
+    }
+
+    public int getNbJoueursACarcassone() {
+        return nbJoueursACarcassone.getValue();
     }
 }

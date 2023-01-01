@@ -1,4 +1,6 @@
 package poo.carcassone.game.components.tuiles;
 
-public abstract class Paysage {
+import java.io.Serializable;
+
+public abstract class Paysage implements Serializable {
 }

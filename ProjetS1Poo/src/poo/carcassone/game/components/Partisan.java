@@ -1,6 +1,8 @@
 package poo.carcassone.game.components;
 
-public class Partisan {
+import java.io.Serializable;
+
+public class Partisan implements Serializable {
 
     private final String couleur;
     private int cote;
