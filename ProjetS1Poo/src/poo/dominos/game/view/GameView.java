@@ -52,11 +52,11 @@ public class GameView extends JPanel {
         jTuile.setTuile(null);
         BufferedImage imagePioche = null, imageG = null , imageD = null , imageAbandonner = null,imagePasser=null;
         try {
-            imagePioche = ImageIO.read(new File(getClass().getResource("/images/dominos.jpg").toURI()));
-            imageG = ImageIO.read(new File(getClass().getResource("/images/g.png").toURI()));
-            imageD = ImageIO.read(new File(getClass().getResource("/images/d.png").toURI()));
-            imageAbandonner = ImageIO.read(new File(getClass().getResource("/images/abandonner.png").toURI()));
-            imagePasser = ImageIO.read(new File(getClass().getResource("/images/passer.png").toURI()));
+            imagePioche = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/dominos.jpg")).toURI()));
+            imageG = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/g.png")).toURI()));
+            imageD = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/d.png")).toURI()));
+            imageAbandonner = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/abandonner.png")).toURI()));
+            imagePasser = ImageIO.read(new File(Objects.requireNonNull(getClass().getResource("/images/passer.png")).toURI()));
         } catch (IOException e) {
             System.out.println("Erreur dans le chargement initComponents de GameView ");
         } catch (URISyntaxException e) {

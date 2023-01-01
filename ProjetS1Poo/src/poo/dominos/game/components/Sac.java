@@ -7,7 +7,7 @@ import java.util.Random;
 public class Sac implements Serializable {
 
     private final ArrayList<Tuile> tuiles;
-    private int capacite;
+    private final int capacite;
     private final static Random rand = new Random();
 
     public Sac(int capacite) {
