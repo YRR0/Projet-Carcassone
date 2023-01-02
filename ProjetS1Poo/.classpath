@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="poo-develop/ProjetS1Poo/src"/>
-	<classpathentry kind="src" path="Ress"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
