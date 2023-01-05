@@ -4,10 +4,10 @@ Le projet propose deux jeux : Carcassone et Une variante de jeu de Dominos progr
 
 ## Compilation
 
-Pour pouvoir compiler le projet lancez cette commande à partir du repertoire pere du projet 
+Pour pouvoir compiler le projet lancez cette commande à partir du repertoire ou se trouve le dossier src du projet 
 
 ```bash
-    javac -classpath ProjetPOOIG/src/ ProjetS1Poo/src/Main.java 
+    javac -classpath src/ src/Main.java 
 ```
 
 ## Exécution
@@ -15,7 +15,7 @@ Pour pouvoir compiler le projet lancez cette commande à partir du repertoire pe
 Pour pouvoir exécuter le projet lancez cette commande à partir du meme repertoire que la compilation
 
 ```bash
-    java -classpath ProjetPOOIG/src/Main 
+    java -classpath src/ Main 
 ```
 
 
