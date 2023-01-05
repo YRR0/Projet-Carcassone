@@ -57,7 +57,7 @@ public class Joueur implements Serializable {
     }
 
     public void tourner(Tuile t, int nbTour) { // Des tours de 90°
-        // Calcule de nombre de tour
+        // Calcule de nombre de tours
         int nb = ((nbTour%4) + 4) % 4;
         while(nb > 0) {
             t.tourner();

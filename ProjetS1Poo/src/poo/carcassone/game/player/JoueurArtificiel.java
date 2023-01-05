@@ -15,7 +15,7 @@ public class JoueurArtificiel extends Joueur {
         super("Flatchy " + new Random().nextInt(1000));
     }
 
-    // une classe interner pour garder la meilleur ligne de placement et la meilleur colonne
+    // une classe interner pour garder la meilleure ligne de placement et la meilleure colonne
     public static class Instruction implements Serializable {
         public int i;
         public int j;
@@ -25,7 +25,7 @@ public class JoueurArtificiel extends Joueur {
         }
     }
 
-    //Faire une methode boolean pour coupPossible pour tester si sur le terrain on peut poser notre tuile
+    //Faire une methode boolean pour coupPossible pour tester si sur le terrain, on peut poser notre tuile
     public boolean coupPossible(Plateau p,Tuile a) {
         int nbChoix = 0;
         boolean res = false;
