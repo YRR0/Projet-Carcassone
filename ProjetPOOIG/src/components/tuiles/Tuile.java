@@ -47,7 +47,8 @@ public abstract class Tuile implements Serializable {
 	
 	public boolean equals(Object o) {
         if(o == this) return true;
-        if(!(o instanceof Tuile t)) return false;
+        if(!(o instanceof Tuile)) return false;
+        Tuile t = (Tuile) o;
         if(t.identique(this)) return true;
         t.tourner();
         if(t.identique(this)) {

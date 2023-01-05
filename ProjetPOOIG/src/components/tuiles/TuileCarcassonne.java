@@ -8,11 +8,11 @@ public class TuileCarcassonne extends Tuile {
     private boolean carrefour;
     
     public TuileCarcassonne(Paysage c0, Paysage c1, Paysage c2, Paysage c3, boolean bouclier) {
-        cotes = new CoteCarcassone[4];
-        cotes[0] = new CoteCarcassone(c0);
-        cotes[1] = new CoteCarcassone(c1);
-        cotes[2] = new CoteCarcassone(c2);
-        cotes[3] = new CoteCarcassone(c3);
+        cotes = new CoteCarcassonne[4];
+        cotes[0] = new CoteCarcassonne(c0);
+        cotes[1] = new CoteCarcassonne(c1);
+        cotes[2] = new CoteCarcassonne(c2);
+        cotes[3] = new CoteCarcassonne(c3);
         this.bouclier = bouclier;
         abbayeOuCarrefour(); // Pour initialiser les attributs abbaye et carrefour
     }
@@ -20,8 +20,8 @@ public class TuileCarcassonne extends Tuile {
     private void abbayeOuCarrefour() {
         int nbPres = 0, nbChemins = 0;
         for(Cote p : cotes) {
-            if(((CoteCarcassone) p).estPres()) nbPres++;
-            else if(((CoteCarcassone) p).estChemin()) nbChemins++;
+            if(((CoteCarcassonne) p).estPres()) nbPres++;
+            else if(((CoteCarcassonne) p).estChemin()) nbChemins++;
         }
         if(nbPres > 3) abbaye = true;
         else if(nbChemins > 2) carrefour = true;

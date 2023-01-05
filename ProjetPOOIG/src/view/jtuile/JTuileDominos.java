@@ -27,8 +27,8 @@ public class JTuileDominos extends JTuile {
             this.tuile = null;
             repaint();
         } else {
-            if(!(t instanceof TuileDominos tile)) return;
-            this.tuile = tile;
+            if(!(t instanceof TuileDominos)) return;
+            this.tuile = (TuileDominos) t;
             repaint();
         }
     }

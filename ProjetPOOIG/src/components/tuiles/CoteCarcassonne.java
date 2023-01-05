@@ -1,17 +1,17 @@
 package components.tuiles;
 
-public class CoteCarcassone extends Cote {
+public class CoteCarcassonne extends Cote {
 	
 	private final Paysage paysage;
 	
-	public CoteCarcassone(Paysage paysage) {
+	public CoteCarcassonne(Paysage paysage) {
 		this.paysage = paysage;
 	}
 
 	@Override
 	public boolean corresponds(Cote c) {
-		if(!(c instanceof CoteCarcassone c1)) return false;
-		return this.paysage.getClass().equals(c1.paysage.getClass());
+		if(!(c instanceof CoteCarcassonne)) return false;
+		return this.paysage.getClass().equals(((CoteCarcassonne)c).paysage.getClass());
 	}
 
 	public boolean estPres() {

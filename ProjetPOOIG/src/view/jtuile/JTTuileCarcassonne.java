@@ -29,8 +29,8 @@ public class JTTuileCarcassonne extends JTuile {
             this.tuile = null;
             repaint();
         } else {
-            if(!(t instanceof TuileCarcassonne tile)) return;
-            this.tuile = tile;
+            if(!(t instanceof TuileCarcassonne)) return;
+            this.tuile = t;
             repaint();
         }
     }
@@ -63,13 +63,18 @@ public class JTTuileCarcassonne extends JTuile {
     }
 
     private Point getPartisanPosition() {
-        System.out.println(((TuileCarcassonne)tuile).getCotePartisan());
-        return switch (((TuileCarcassonne)tuile).getCotePartisan()) {
-            case 0 -> new Point(0, 35);
-            case 1 -> new Point(35, 0);
-            case 2 -> new Point(60, 35);
-            case 3 -> new Point(35, 60);
-            default -> new Point(37, 37);
+        Point res;
+        switch (((TuileCarcassonne)tuile).getCotePartisan()) {
+            case 0 : res = new Point(0, 35);
+                break;
+            case 1 : res = new Point(35, 0);
+                break;
+            case 2 : res = new Point(60, 35);
+                break;
+            case 3 : res = new Point(35, 60);
+                break;
+            default : res = new Point(37, 37);
         };
+        return res;
     }
 }

@@ -62,13 +62,20 @@ public class JoueurCarcassonne extends Joueur {
     }
 
     public String getCouleur() {
-        return switch (id) {
-            case 0 -> "Bleu";
-            case 1 -> "Jaune";
-            case 2 -> "Vert";
-            case 3 -> "Rouge";
-            case 4 -> "Gris";
-            default -> "Noir";
+        String res;
+        switch (id) {
+            case 0 : res = "Bleu";
+                break;
+            case 1 : res = "Jaune";
+                break;
+            case 2 : res = "Vert";
+                break;
+            case 3 : res = "Rouge";
+                break;
+            case 4 : res = "Gris";
+                break;
+            default : res = "Noir";
         };
+        return res;
     }
 }

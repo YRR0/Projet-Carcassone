@@ -4,7 +4,6 @@ import components.plateau.Plateau;
 import components.tuiles.Tuile;
 import components.tuiles.TuileDominos;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -17,7 +16,6 @@ public class JoueurArtificiel extends Joueur {
 
     // une classe interner pour garder la meilleure ligne de placement et la meilleure colonne
     static class Instruction implements Serializable {
-        @Serial
         private static final long serialVersionUID = 2660699238932119909L;
 		public int i;
         public int j;

@@ -54,7 +54,7 @@ public class TerminalController {
 	        plateau.ajouter(initiale, plateau.nbLin() / 2, plateau.nbCol() / 2);
 	        while(joueurs.size() > 1 && !sac.estVide()) {
 	            for(Joueur j : joueurs) {
-	                if(!(j instanceof JoueurArtificiel joueurArtificiel)) {
+	                if(!(j instanceof JoueurArtificiel)) {
 	                    System.out.println("C'est à vous " + j.nom + " vous avez " + j.getNbPoints() + " points");
 	                    System.out.println("Voici le plateau: ");
 	                    plateau.affiche();
@@ -102,6 +102,7 @@ public class TerminalController {
 	                    } while(!rep.equalsIgnoreCase("o") && !rep.equalsIgnoreCase("oui"));
 	                } else {
 	                    TuileDominos t = (TuileDominos) j.piocher(sac);
+						JoueurArtificiel joueurArtificiel = (JoueurArtificiel) j;
 						if(joueurArtificiel.coupPossible(plateau, t)) {
 	                        j.tourner(t, joueurArtificiel.getNbTours());
 	                        int lin = joueurArtificiel.getLigne(), col = joueurArtificiel.getCol();
