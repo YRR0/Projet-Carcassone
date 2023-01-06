@@ -65,7 +65,7 @@ public class GameControllerCarcassonne extends GameController {
                         int lin = (int) coordinates.getX(), col = (int) coordinates.getY();
                         if(((JoueurCarcassonne)courant).poserPartisans(plateau, lin, col, getCote(mouseEvent))) {
                             gameView.setPlateau(plateau);
-                            nextPlayer();
+                            nextPlayer(joueurs.indexOf(courant));
                         } else {
                             resetPartisanPosition();
                         }
@@ -108,8 +108,7 @@ public class GameControllerCarcassonne extends GameController {
 
 
     @Override
-    public void nextPlayer() {
-        int indexCourant = joueurs.indexOf(courant);
+    public void nextPlayer(int indexCourant) {
         courant = joueurs.get((indexCourant+1) % joueurs.size());
         clearTuile();
         resetTuilePosition();
@@ -154,7 +153,7 @@ public class GameControllerCarcassonne extends GameController {
         if(sac.estVide()) {
             winner();
         }
-        nextPlayer();
+        nextPlayer(joueurs.indexOf(courant));
     }
 
     private void resetPartisanPosition() {

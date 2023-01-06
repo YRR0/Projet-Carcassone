@@ -51,7 +51,7 @@ public class GameControllerDominos extends GameController {
                             courant.gangerPoints(nbPoints);
                             gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
                             gameView.updatePlayerInfo(courant.id, courant.getNbPoints());
-                            nextPlayer();
+                            nextPlayer(joueurs.indexOf(courant));
                             if(sac.estVide()) {
                                 winner();
                             }
