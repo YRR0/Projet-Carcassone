@@ -189,7 +189,7 @@ public abstract class GameController extends JFrame implements Serializable {
 
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("src/Resources/images/quitter.png"));
+            image = ImageIO.read(new File("src/Resources/images/menu/quitter.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
