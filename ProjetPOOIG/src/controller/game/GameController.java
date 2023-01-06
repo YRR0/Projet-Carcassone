@@ -29,6 +29,7 @@ public abstract class GameController extends JFrame implements Serializable {
     boolean tuileMovable;
 
     public void start() {
+        addMouseListener(mouseController());
         if(courant instanceof JoueurArtificiel) {
             aiPlayer();
         }
@@ -80,7 +81,7 @@ public abstract class GameController extends JFrame implements Serializable {
         });
     }
 
-    private boolean isInTuile(MouseEvent mouseEvent) {
+    public boolean isInTuile(MouseEvent mouseEvent) {
         JTuile jTuile = gameView.getJTuile();
         boolean isInWidthBounds = (mouseEvent.getX() - getInsets().left >= jTuile.getX())
                 && (mouseEvent.getX() - getInsets().left <= jTuile.getX() + jTuile.getWidth());
@@ -160,6 +161,11 @@ public abstract class GameController extends JFrame implements Serializable {
         tuileMovable = false;
         if(courant instanceof JoueurArtificiel) aiPlayer();
         return indexCourant;
+    }
+
+    protected MouseListener mouseController() {
+        return new MouseAdapter() {
+        };
     }
 
     void clearTuile() {

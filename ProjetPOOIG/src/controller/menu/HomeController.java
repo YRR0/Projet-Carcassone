@@ -27,7 +27,7 @@ public class HomeController extends JFrame {
         });
         homeView.setLoadDominosBtnActionListener(e -> {
             try {
-                GameController gameController = GameControllerDominos.load();
+                GameControllerDominos gameController = GameControllerDominos.load();
                 this.dispose();
                 gameController.setVisible(true);
                 gameController.start();
@@ -38,7 +38,7 @@ public class HomeController extends JFrame {
         });
         homeView.setLoadCarcassonneBtnActionListener(e -> {
             try {
-                GameController gameController = GameControllerCarcassonne.load();
+                GameControllerCarcassonne gameController = GameControllerCarcassonne.load();
                 this.dispose();
                 gameController.setVisible(true);
                 gameController.start();

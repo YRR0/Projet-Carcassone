@@ -27,12 +27,12 @@ public class GameControllerDominos extends GameController {
         add(gameView);
         setSize(GameView.WIDTH, GameView.HEIGHT);
         setLocationRelativeTo(null);
-        addMouseListener(mouseController());
         setTitle("Nominos");
         setVisible(true);
     }
 
-    private MouseListener mouseController() {
+    @Override
+    protected MouseListener mouseController() {
         return new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {

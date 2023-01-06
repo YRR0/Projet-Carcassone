@@ -8,6 +8,7 @@ import player.JoueurArtificielCarcassonne;
 import player.JoueurCarcassonne;
 import view.gameview.GameView;
 import view.gameview.GameViewCarcassone;
+import view.jtuile.JPartisan;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -29,12 +30,12 @@ public class GameControllerCarcassonne extends GameController {
         add(gameView);
         setSize(GameView.WIDTH, GameView.HEIGHT);
         setLocationRelativeTo(null);
-        addMouseListener(mouseController());
         setTitle("Carcassonne");
         setVisible(true);
     }
 
-    private MouseListener mouseController() {
+    @Override
+    protected MouseListener mouseController() {
         return new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
@@ -119,6 +120,15 @@ public class GameControllerCarcassonne extends GameController {
         return indexCourant;
     }
 
+    private boolean isInPartisan(MouseEvent mouseEvent) {
+        JPartisan jPartisan = ((GameViewCarcassone)gameView).getjPartisan();
+        boolean isInWidthBounds = (mouseEvent.getX() - getInsets().left >= jPartisan.getX())
+                && (mouseEvent.getX() - getInsets().left <= jPartisan.getX() + jPartisan.getWidth());
+        boolean isInHeightBounds= (mouseEvent.getY() - getInsets().top >= jPartisan.getY())
+                && (mouseEvent.getY() - getInsets().top <= jPartisan.getY() + jPartisan.getHeight());
+
+        return isInHeightBounds && isInWidthBounds;
+    }
     @Override
     void aiPlayer() {
         Tuile t = courant.piocher(sac);
