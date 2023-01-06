@@ -5,9 +5,9 @@ import view.jtuile.JTTuileCarcassonne;
 
 import java.awt.*;
 
-public class JPlateauCarcassone extends JPlateau {
+public class JPlateauCarcassonne extends JPlateau {
 
-    public JPlateauCarcassone(int nbLins, int nbCols) {
+    public JPlateauCarcassonne(int nbLins, int nbCols) {
         initTuiles(nbLins, nbCols);
         setLayout(null);
     }

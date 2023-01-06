@@ -7,7 +7,7 @@ import components.tuiles.Tuile;
 import player.JoueurArtificielCarcassonne;
 import player.JoueurCarcassonne;
 import view.gameview.GameView;
-import view.gameview.GameViewCarcassone;
+import view.gameview.GameViewCarcassonne;
 import view.jtuile.JPartisan;
 
 import java.awt.*;
@@ -24,7 +24,7 @@ public class GameControllerCarcassonne extends GameController {
 
     private boolean partisanMovable;
     public GameControllerCarcassonne(int nbJoueurs, int nbJoueursA) {
-        gameView = new GameViewCarcassone(nbJoueurs, nbJoueursA);
+        gameView = new GameViewCarcassonne(nbJoueurs, nbJoueursA);
         initGame();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(gameView);
@@ -88,12 +88,12 @@ public class GameControllerCarcassonne extends GameController {
         plateau.ajouter(initiale, plateau.nbLin() / 2 - 1, plateau.nbCol() / 2 - 1);
         gameView.setPlateau(plateau);
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
-        ((GameViewCarcassone)gameView).setPartisan(new Partisan(((JoueurCarcassonne)courant).getCouleur()));
+        ((GameViewCarcassonne)gameView).setPartisan(new Partisan(((JoueurCarcassonne)courant).getCouleur()));
         gameView.enable_piocher(true);
     }
 
     private int getCote(MouseEvent event) {
-        GameViewCarcassone gameViewCarcassone = (GameViewCarcassone) gameView;
+        GameViewCarcassonne gameViewCarcassone = (GameViewCarcassonne) gameView;
         int plateauX = gameViewCarcassone.getjPlateau().getX(), plateauY = gameViewCarcassone.getjPlateau().getY();
         int tuileWidth = gameView.getJTuile().getWidth() + 5, tuileHeight = gameView.getJTuile().getHeight() + 5; // 5, c'est l'espace entre les tuiles
         int y = (event.getX() - plateauX - getInsets().left) % tuileWidth;
@@ -115,13 +115,13 @@ public class GameControllerCarcassonne extends GameController {
         resetTuilePosition();
         partisanMovable = false;
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
-        ((GameViewCarcassone)gameView).setPartisan(new Partisan(((JoueurCarcassonne)courant).getCouleur()));
+        ((GameViewCarcassonne)gameView).setPartisan(new Partisan(((JoueurCarcassonne)courant).getCouleur()));
         if(courant instanceof JoueurArtificielCarcassonne) aiPlayer();
         return indexCourant;
     }
 
     private boolean isInPartisan(MouseEvent mouseEvent) {
-        JPartisan jPartisan = ((GameViewCarcassone)gameView).getjPartisan();
+        JPartisan jPartisan = ((GameViewCarcassonne)gameView).getjPartisan();
         boolean isInWidthBounds = (mouseEvent.getX() - getInsets().left >= jPartisan.getX())
                 && (mouseEvent.getX() - getInsets().left <= jPartisan.getX() + jPartisan.getWidth());
         boolean isInHeightBounds= (mouseEvent.getY() - getInsets().top >= jPartisan.getY())
@@ -159,7 +159,7 @@ public class GameControllerCarcassonne extends GameController {
     }
 
     private void resetPartisanPosition() {
-        ((GameViewCarcassone)gameView).getjPartisan().setLocation((int) (0.7 * getWidth() + getInsets().left), (int) (0.8 * getHeight() + getInsets().top));
+        ((GameViewCarcassonne)gameView).getjPartisan().setLocation((int) (0.7 * getWidth() + getInsets().left), (int) (0.8 * getHeight() + getInsets().top));
     }
 
     public static GameControllerCarcassonne load() throws IOException, ClassNotFoundException {

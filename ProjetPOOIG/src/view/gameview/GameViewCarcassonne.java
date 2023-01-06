@@ -2,19 +2,19 @@ package view.gameview;
 
 import components.tuiles.Partisan;
 import view.jgameinfo.JGameInfo;
-import view.jplateau.JPlateauCarcassone;
+import view.jplateau.JPlateauCarcassonne;
 import view.jtuile.JPartisan;
 import view.jtuile.JTTuileCarcassonne;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GameViewCarcassone extends GameView {
+public class GameViewCarcassonne extends GameView {
 
     private final JPartisan jPartisan;
-    public GameViewCarcassone(int nbJoueurs, int nbJoueursA) {
+    public GameViewCarcassonne(int nbJoueurs, int nbJoueursA) {
         super(nbJoueurs, nbJoueursA, JGameInfo.Jeu.CARCASSONE);
-        jPlateau = new JPlateauCarcassone(NB_LIGNES, NB_COLS);
+        jPlateau = new JPlateauCarcassonne(NB_LIGNES, NB_COLS);
         jTuile = new JTTuileCarcassonne();
         jPartisan = new JPartisan();
         reposition();
