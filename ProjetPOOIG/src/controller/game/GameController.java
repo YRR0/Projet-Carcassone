@@ -57,8 +57,8 @@ public abstract class GameController extends JFrame implements Serializable {
         });
         gameView.abandonner_addActionListener(e -> {
             courant.abandonner();
-            int indexCourant = nextPlayer();
-            joueurs.remove(indexCourant);
+            joueurs.remove(courant);
+            nextPlayer();
             clearTuile();
             resetTuilePosition();
             repaint();
@@ -144,15 +144,12 @@ public abstract class GameController extends JFrame implements Serializable {
         repaint();
         if(sac.estVide()) {
             winner();
+            return;
         }
         nextPlayer();
     }
 
-    /**
-     *
-     * @return the index of the current player
-     */
-    public int nextPlayer() {
+    public void nextPlayer() {
         int indexCourant = joueurs.indexOf(courant);
         courant = joueurs.get((indexCourant+1) % joueurs.size());
         clearTuile();
@@ -160,7 +157,6 @@ public abstract class GameController extends JFrame implements Serializable {
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
         tuileMovable = false;
         if(courant instanceof JoueurArtificiel) aiPlayer();
-        return indexCourant;
     }
 
     protected MouseListener mouseController() {

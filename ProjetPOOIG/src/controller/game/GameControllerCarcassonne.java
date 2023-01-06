@@ -108,7 +108,7 @@ public class GameControllerCarcassonne extends GameController {
 
 
     @Override
-    public int nextPlayer() {
+    public void nextPlayer() {
         int indexCourant = joueurs.indexOf(courant);
         courant = joueurs.get((indexCourant+1) % joueurs.size());
         clearTuile();
@@ -117,7 +117,6 @@ public class GameControllerCarcassonne extends GameController {
         gameView.setCurrentPlayer(courant.nom, courant.getNbPoints());
         ((GameViewCarcassonne)gameView).setPartisan(new Partisan(((JoueurCarcassonne)courant).getCouleur()));
         if(courant instanceof JoueurArtificielCarcassonne) aiPlayer();
-        return indexCourant;
     }
 
     private boolean isInPartisan(MouseEvent mouseEvent) {
