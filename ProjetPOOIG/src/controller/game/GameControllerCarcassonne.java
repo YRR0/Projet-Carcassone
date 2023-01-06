@@ -152,6 +152,7 @@ public class GameControllerCarcassonne extends GameController {
         repaint();
         if(sac.estVide()) {
             winner();
+            return;
         }
         nextPlayer(joueurs.indexOf(courant));
     }
